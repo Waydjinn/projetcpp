@@ -1,14 +1,14 @@
 #ifndef TANK_H
 #define TANK_H
+#include <terrain.h>
 
-
-class Tank
+class Tank:public Terrain
 {
 private:
     int capacite; //nbr de déplacement du tank L/10
     int obus1, obus2, obus3;
 public:
-    Tank();
+    Tank(const Terrain T);
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
     void avancer(); //Bouger

@@ -8,6 +8,8 @@ private:
     int L, C;//L longueur, C largeur
 public:
     Terrain();
+    int getL()const;
+    int getC()const;
 };
 
 #endif // TERRAIN_H
