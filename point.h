@@ -1,6 +1,10 @@
 #ifndef POINT_H
 #define POINT_H
+#include <iostream>
+#include <string>
+#include <math.h>
 
+using namespace std;
 
 class Point
 {

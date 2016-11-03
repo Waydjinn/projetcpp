@@ -1,6 +1,9 @@
 #ifndef SEGMENT_H
 #define SEGMENT_H
+#include <point.h>
 
+
+using namespace std;
 
 class Segment:public Point
 {

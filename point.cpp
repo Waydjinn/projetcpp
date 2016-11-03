@@ -16,33 +16,33 @@ Point::Point(const Point &p){
     this->y = p.getY();
 }
 
-Point::getX(){
+int Point::getX()const{
     return this->x;
 }
 
-Point::getY(){
+int Point::getY()const{
     return this->y;
 }
 
-Point::setX(int val){
+void Point::setX(int val){
     this->x = val;
 }
 
-Point::setY(int val){
+void Point::setY(int val){
     this->y = val;
 }
 
-Point::afficher(const Point &p){
-    cout << this->getX() << endl;
-    cout << this->getY() << endl;
+void Point::afficher(const Point &p){
+    cout << p.getX() << endl;
+    cout << p.getY() << endl;
 }
 
-Point::cloner(const Point &p){
+void Point::cloner(const Point &p){
     this->x = p.getX();
     this->y = p.getY();
 }
 
-Point::move(int x, int y){
+void Point::move(int x, int y){
     this->x += x;
     this->y += y;
 }
