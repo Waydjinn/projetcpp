@@ -1,10 +1,13 @@
+QT += widgets
+
 HEADERS += \
     tank.h \
     joueurh.h \
     joueuria.h \
     terrain.h \
     segment.h \
-    point.h
+    point.h \
+    fenetre.h
 
 SOURCES += \
     tank.cpp \
@@ -12,4 +15,9 @@ SOURCES += \
     joueuria.cpp \
     terrain.cpp \
     segment.cpp \
-    point.cpp
+    point.cpp \
+    main.cpp \
+    fenetre.cpp
+
+FORMS +=
+
