@@ -48,7 +48,21 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     map->setPixmap(QPixmap(QString("img/map.png")));
     map->hide();
 
-    //
+    //tankJ1
+    tankJ1 = new QLabel(this);
+    tankJ1->setObjectName("tankJ1");
+    tankJ1->setGeometry(QRect(10, 10, 40, 40));
+    tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png")));
+    tankJ1->setScaledContents(true);
+    tankJ1->hide();
+
+    //tankJ2
+    tankJ2 = new QLabel(this);
+    tankJ2->setObjectName("tankJ2");
+    tankJ2->setGeometry(QRect(950, 480, 40, 40));
+    tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
+    tankJ2->setScaledContents(true);
+    tankJ2->hide();
 
 
     //Actions
@@ -59,6 +73,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), map, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tankJ1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tankJ2, SLOT(show()));
     //Bouton 2
     QObject::connect(bouton2, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton2, SLOT(hide()));
@@ -66,6 +82,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), map, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), tankJ1, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), tankJ2, SLOT(show()));
     //Bouton 3
     QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit())); //methode statique de QT, SIGNAL -> marco préprocesseur
     //qApp -> QT créer automatiquement un pointeur qApp qui pointe vers l'objet QApplication créer
@@ -76,4 +94,6 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton4, SIGNAL(clicked()), titre, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), bouton4, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), map, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), tankJ1, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), tankJ2, SLOT(hide()));
 }

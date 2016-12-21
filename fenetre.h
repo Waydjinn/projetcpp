@@ -16,6 +16,8 @@ public:
 private:
     QLabel *titre;
     QLabel *map;
+    QLabel *tankJ1;
+    QLabel *tankJ2;
     QPushButton *bouton1;
     QPushButton *bouton2;
     QPushButton *bouton3;
