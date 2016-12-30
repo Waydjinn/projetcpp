@@ -7,18 +7,14 @@ Tank::Tank()
     if(_nbrTank == 0){  //Tank J1
         this->posx = 20;
         this->posy = 10;
-        this->capacite = 25;
-        this->obus2 = 10;
-        this->obus3 = 5;
-        _nbrTank++;
     }else if(_nbrTank == 1){ //Tank J2
         this->posx = 940;
         this->posy = 450;
-        this->capacite = 25;
-        this->obus2 = 10;
-        this->obus3 = 5;
-        _nbrTank++;
     }
+    this->capacite = 25;
+    this->obus2 = 10;
+    this->obus3 = 5;
+    _nbrTank++;
 }
 
 //Getters

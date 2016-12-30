@@ -3,8 +3,8 @@
 Terrain::Terrain()
 {
 
-    this->C = 1000;
-    this->L = 600;
+    this->C = 970;
+    this->L = 480;
 }
 
 int Terrain::getL()const{

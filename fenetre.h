@@ -15,11 +15,11 @@ public:
     Fenetre();
 
 private:
+    QLabel *titre;
     Terrain *terrain;
+    QLabel *map;
     Tank *tank1;
     Tank *tank2;
-    QLabel *titre;
-    QLabel *map;
     QLabel *tankJ1;
     QLabel *tankJ2;
     QPushButton *bouton1;

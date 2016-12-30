@@ -3,8 +3,7 @@
 Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 {
     //Fenêtre
-    terrain = new Terrain();
-    setFixedSize(terrain->getC(), terrain->getL());    //Taille de la fenêtre
+    setFixedSize(1000, 600);    //Taille de la fenêtre
 
     //Titre
     titre = new QLabel("Jeu de Tank - Projet CPP", this); //this->pointeur vers le widget parent
@@ -49,7 +48,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Carte de jeu
     map = new QLabel(this);
     map->setObjectName("map");
-    map->setGeometry(QRect(10, 10, 970, 480));
+    terrain = new Terrain();
+    map->setGeometry(QRect(10, 10, terrain->getC(), terrain->getL()));
     map->setPixmap(QPixmap(QString("img/map.png")));
     map->hide();
 
