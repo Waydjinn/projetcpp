@@ -7,6 +7,7 @@
 #include <QObject>
 
 #include "terrain.h"
+#include "tank.h"
 
 class Fenetre : public QWidget
 {
@@ -14,6 +15,9 @@ public:
     Fenetre();
 
 private:
+    Terrain *terrain;
+    Tank *tank1;
+    Tank *tank2;
     QLabel *titre;
     QLabel *map;
     QLabel *tankJ1;

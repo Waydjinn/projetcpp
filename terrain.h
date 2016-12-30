@@ -8,7 +8,7 @@
 
 #include "point.h"
 
-class Terrain : public Point, public QWidget
+class Terrain : public Point
 {
 public:
     Terrain();
@@ -17,7 +17,6 @@ public:
 
 private:
     int L, C;//L longueur, C largeur
-    QPushButton *boutonR1;
 
 };
 

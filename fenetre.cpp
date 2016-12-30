@@ -3,7 +3,8 @@
 Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 {
     //Fenêtre
-    setFixedSize(1000, 600);    //Taille de la fenêtre
+    terrain = new Terrain();
+    setFixedSize(terrain->getC(), terrain->getL());    //Taille de la fenêtre
 
     //Titre
     titre = new QLabel("Jeu de Tank - Projet CPP", this); //this->pointeur vers le widget parent
@@ -18,22 +19,26 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     font.setBold(true);
     font.setWeight(75);
     titre->setFont(font);
+
     //Bouton Un joueur
     bouton1 = new QPushButton("Jouer - Un joueur", this);
     bouton1->setCursor(Qt::PointingHandCursor);  //Change la forme du curseur quand il passe sur le bouton
     bouton1->setFont(QFont("Arial", 16));    //Choix de la police et taille du bouton
     bouton1->setGeometry(320, 180, 400, 90); //Forme et emplacement du bouton
+
     //Bouton Multijoueur
     bouton2 = new QPushButton("Jouer - Deux joueur", this);
     bouton2->setCursor(Qt::PointingHandCursor);
     bouton2->setFont(QFont("Arial", 16));
     bouton2->setGeometry(320, 280, 400, 90);
+
     //Bouton Quitter
     bouton3 = new QPushButton("Quitter", this);
     bouton3->setCursor(Qt::PointingHandCursor);
     bouton3->setFont(QFont("Arial", 16));
     bouton3->setGeometry(320, 380, 400, 90);
     bouton3->setToolTip("Arrêt de l'application");
+
     //Boutton Retour menu
     bouton4 = new QPushButton("Retour menu", this);
     bouton4->setCursor(Qt::PointingHandCursor);
@@ -44,29 +49,35 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Carte de jeu
     map = new QLabel(this);
     map->setObjectName("map");
-    map->setGeometry(QRect(10, 10, 980, 510));
+    map->setGeometry(QRect(10, 10, 970, 480));
     map->setPixmap(QPixmap(QString("img/map.png")));
     map->hide();
 
     //tankJ1
+    tank1 = new Tank();
+    tank1->setCapacite((terrain->getL()/10));
+    //Label du tank (image)
     tankJ1 = new QLabel(this);
     tankJ1->setObjectName("tankJ1");
-    tankJ1->setGeometry(QRect(10, 10, 40, 40));
-    tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png")));
+    tankJ1->setGeometry(QRect(tank1->getPosx(), tank1->getPosY(), 40, 40));
+    tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png"))); //tank1->getImage()
     tankJ1->setScaledContents(true);
     tankJ1->hide();
 
     //tankJ2
+    tank2 = new Tank();
+    tank2->setCapacite((terrain->getL()/10));
+    //Label du tank (image)
     tankJ2 = new QLabel(this);
     tankJ2->setObjectName("tankJ2");
-    tankJ2->setGeometry(QRect(950, 480, 40, 40));
+    tankJ2->setGeometry(QRect(tank2->getPosx(), tank2->getPosY(), 40, 40));
     tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
     tankJ2->setScaledContents(true);
     tankJ2->hide();
 
 
     //Actions
-    //Bouton 1
+    //Bouton 1 - Un joueur
     QObject::connect(bouton1, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton2, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton3, SLOT(hide()));
@@ -75,7 +86,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), map, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tankJ2, SLOT(show()));
-    //Bouton 2
+
+    //Bouton 2 - Deux joueurs
     QObject::connect(bouton2, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton2, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton3, SLOT(hide()));
@@ -84,10 +96,12 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), map, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tankJ1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tankJ2, SLOT(show()));
-    //Bouton 3
-    QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit())); //methode statique de QT, SIGNAL -> marco préprocesseur
+
+    //Bouton 3 - quitter
+    QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit())); //methode statique de QT, SIGNAL -> macro préprocesseur
     //qApp -> QT créer automatiquement un pointeur qApp qui pointe vers l'objet QApplication créer
-    //Bouton 4
+
+    //Bouton 4 - retour menu
     QObject::connect(bouton4, SIGNAL(clicked()), bouton1, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), bouton2, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), bouton3, SLOT(show()));
@@ -96,4 +110,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton4, SIGNAL(clicked()), map, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), tankJ1, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), tankJ2, SLOT(hide()));
+
+    //Actions clavier
+
 }
