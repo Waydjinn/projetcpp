@@ -64,6 +64,12 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre2, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre3, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre4, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->roche1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->eau1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
@@ -74,6 +80,12 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->carte, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre1, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre2, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre3, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre4, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->roche1, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->eau1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
@@ -89,6 +101,12 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton4, SIGNAL(clicked()), titre, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), bouton4, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), terrain->carte, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre1, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre2, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre3, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre4, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->roche1, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->eau1, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), tank1->tankJ1, SLOT(hide()));
     QObject::connect(bouton4, SIGNAL(clicked()), tank2->tankJ2, SLOT(hide()));
 

@@ -4,12 +4,19 @@
 #include <QLabel>
 #include <QKeyEvent>
 #include <QEvent>
+
+#include "conio.h"
 #include "terrain.h"
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
 
 class Tank
 {
 private:
-    void keyPressEvent (QKeyEvent * event);
+    void keyPressEvent ();
     int capacite; //nbr de déplacement du tank
     int obus1, obus2, obus3, posx, posy;
 
@@ -18,8 +25,8 @@ public:
     QLabel *tankJ1;
     QLabel *tankJ2;
     static int _nbrTank;
-    int aleaX();
-    int aleaY();
+    int aleaTankX();
+    int aleaTankY();
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
     int avancer(int mouv); //Bouger renvoie 1 si le tank a bougé (posx et posy modifier), sinon 0

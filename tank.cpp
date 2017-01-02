@@ -5,8 +5,8 @@ int Tank:: _nbrTank = 0;
 Tank::Tank(QWidget *Fen)
 {
     if(_nbrTank == 0){  //Tank J1
-        this->posx = aleaX()*50;
-        this->posy = aleaY()*50;
+        this->posx = aleaTankX()*50;
+        this->posy = aleaTankY()*50;
         tankJ1 = new QLabel(Fen);
         tankJ1->setObjectName("tankJ1");
         tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
@@ -14,8 +14,8 @@ Tank::Tank(QWidget *Fen)
         tankJ1->setScaledContents(true);
         tankJ1->hide();
     }else if(_nbrTank == 1){ //Tank J2
-        this->posx = aleaX()*50;
-        this->posy = aleaY()*50;
+        this->posx = aleaTankX()*50;
+        this->posy = aleaTankY()*50;
         tankJ2 = new QLabel(Fen);
         tankJ2->setObjectName("tankJ2");
         tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
@@ -73,7 +73,7 @@ void Tank::setPosY(int n){
 
 //Fonctions
 
-int Tank::aleaX(){
+int Tank::aleaTankX(){
     srand(time(NULL));
     if(_nbrTank == 0){
         return rand()%10;
@@ -82,7 +82,7 @@ int Tank::aleaX(){
     }
 }
 
-int Tank::aleaY(){
+int Tank::aleaTankY(){
     srand(time(NULL));
     if(_nbrTank == 0){
         return rand()%5;
@@ -104,7 +104,7 @@ int Tank::avancer(int mouv){ //Ajouter les conditons pour ne pas traverser le ta
         this->setPosY(this->getPosY()+50);
         aBouge = 1;
     }//Vers la droite
-    else if(mouv == 3 && getPosx()<900){
+    else if(mouv == 3 && getPosx()<950){
         this->setPosX(this->getPosx()+50);
         this->setPosY(this->getPosY());
         aBouge = 1;
@@ -118,23 +118,28 @@ int Tank::avancer(int mouv){ //Ajouter les conditons pour ne pas traverser le ta
 }
 
 
-void Tank::keyPressEvent (QKeyEvent * event)
+void Tank::keyPressEvent ()
 {
-    if(event->key() == Qt::Key_Up && this->getCapacite() != 0){
-        if(this->avancer(1)){
-            this->setCapacite(this->getCapacite()-1);
+    int c = 0;
+    while(1){
+        c = 0;
+
+        switch((c=getch())){
+        case KEY_UP:
+            cout << endl << "Up" << endl;//key up
+            break;
+        case KEY_DOWN:
+            cout << endl << "Down" << endl;   // key down
+            break;
+        case KEY_LEFT:
+            cout << endl << "Left" << endl;  // key left
+            break;
+        case KEY_RIGHT:
+            cout << endl << "Right" << endl;  // key right
+            break;
+        default:
+            cout << endl << "null" << endl;  // not arrow
+            break;
         }
-    }else if(event->key() == Qt::Key_Down && this->getCapacite() != 0){
-        if(this->avancer(2)){
-            this->setCapacite(this->getCapacite()-1);
-        }
-    }else if(event->key() == Qt::Key_Right && this->getCapacite() != 0){
-        if(this->avancer(3)){
-            this->setCapacite(this->getCapacite()-1);
-        }
-    }else if(event->key() == Qt::Key_Left && this->getCapacite() != 0){
-        if(this->avancer(4)){
-            this->setCapacite(this->getCapacite()-1);
-        }
-    }
+    }    
 }

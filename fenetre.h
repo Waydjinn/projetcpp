@@ -17,7 +17,6 @@ public:
 private:
     QLabel *titre;
     Terrain *terrain;
-    //QLabel *map;
     Tank *tank1;
     Tank *tank2;
     QPushButton *bouton1;
