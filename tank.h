@@ -18,6 +18,8 @@ public:
     QLabel *tankJ1;
     QLabel *tankJ2;
     static int _nbrTank;
+    int aleaX();
+    int aleaY();
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
     int avancer(int mouv); //Bouger renvoie 1 si le tank a bougé (posx et posy modifier), sinon 0

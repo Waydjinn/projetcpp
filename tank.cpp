@@ -5,20 +5,20 @@ int Tank:: _nbrTank = 0;
 Tank::Tank(QWidget *Fen)
 {
     if(_nbrTank == 0){  //Tank J1
-        this->posx = 20;
-        this->posy = 10;
+        this->posx = aleaX()*50;
+        this->posy = aleaY()*50;
         tankJ1 = new QLabel(Fen);
         tankJ1->setObjectName("tankJ1");
-        tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 40, 40));
+        tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
         tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png"))); //tank1->getImage()
         tankJ1->setScaledContents(true);
         tankJ1->hide();
     }else if(_nbrTank == 1){ //Tank J2
-        this->posx = 940;
-        this->posy = 450;
+        this->posx = aleaX()*50;
+        this->posy = aleaY()*50;
         tankJ2 = new QLabel(Fen);
         tankJ2->setObjectName("tankJ2");
-        tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 40, 40));
+        tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
         tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
         tankJ2->setScaledContents(true);
         tankJ2->hide();
@@ -73,26 +73,44 @@ void Tank::setPosY(int n){
 
 //Fonctions
 
+int Tank::aleaX(){
+    srand(time(NULL));
+    if(_nbrTank == 0){
+        return rand()%10;
+    }else{
+        return rand()%(19-10)+10;
+    }
+}
+
+int Tank::aleaY(){
+    srand(time(NULL));
+    if(_nbrTank == 0){
+        return rand()%5;
+    }else{
+        return rand()%(9-5)+5;
+    }
+}
+
 int Tank::avancer(int mouv){ //Ajouter les conditons pour ne pas traverser le tank adverse ou les obstacles
     int aBouge = 0;
     //Vers le haut
-    if(mouv == 1 && getPosY()>10){
+    if(mouv == 1 && getPosY()>0){
         this->setPosX(this->getPosx());
-        this->setPosY(this->getPosY()-40);
+        this->setPosY(this->getPosY()-50);
         aBouge = 1;
     }//Vers le bas
     else if(mouv == 2 && getPosY()<450){
         this->setPosX(this->getPosx());
-        this->setPosY(this->getPosY()+40);
+        this->setPosY(this->getPosY()+50);
         aBouge = 1;
     }//Vers la droite
-    else if(mouv == 3 && getPosx()<940){
-        this->setPosX(this->getPosx()+40);
+    else if(mouv == 3 && getPosx()<900){
+        this->setPosX(this->getPosx()+50);
         this->setPosY(this->getPosY());
         aBouge = 1;
     }//Vers la gauche
-    else if(mouv == 4 && getPosx()>20){
-        this->setPosX(this->getPosx()-40);
+    else if(mouv == 4 && getPosx()>0){
+        this->setPosX(this->getPosx()-50);
         this->setPosY(this->getPosY());
         aBouge = 1;
     }

@@ -2,6 +2,8 @@
 #define TERRAIN_H
 
 #include <QLabel>
+#include <time.h>  //time
+#include <stdlib.h>//srand, rand
 
 #include "point.h"
 

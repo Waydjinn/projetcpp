@@ -2,12 +2,11 @@
 
 Terrain::Terrain(QWidget *Fen)
 {
-
-    this->C = 970;
-    this->L = 480;
+    this->C = 950;
+    this->L = 500;
     carte = new QLabel(Fen);
     carte->setObjectName("map");
-    carte->setGeometry(QRect(10, 10, this->getC(), this->getL()));
+    carte->setGeometry(QRect(0, 0, this->getC(), this->getL()));
     carte->setPixmap(QPixmap(QString("img/map.png")));
     carte->hide();
 }
