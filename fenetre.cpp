@@ -2,6 +2,8 @@
 
 Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 {
+    installEventFilter(this);
+    auTourDe = 1;
     //Fenêtre
     setFixedSize(1000, 600);    //Taille de la fenêtre
 
@@ -50,8 +52,6 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
     //tankJ1
     tank1 = new Tank(this);
-    tank1->setFlag(QGraphicsItem::ItemIsFocusable);
-    tank1->setFocus();
     tank1->setCapacite((terrain->getL()/10));
 
     //tankJ2
@@ -115,4 +115,44 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
     //Actions clavier
 
+}
+
+bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
+    if(event->type() == QEvent::KeyRelease){
+        QKeyEvent *c = dynamic_cast<QKeyEvent *>(event);
+        if(c && c->key() == Qt::Key_Up){
+            if(this->getAuTourDe() == 1){
+                this->tank1->avancer(1, 1,this->tank1, this->tank2);
+            }else if(this->getAuTourDe() == 2){
+                this->tank1->avancer(1, 2,this->tank2, this->tank1);
+            }
+        }else if(c && c->key() == Qt::Key_Down){
+            if(this->getAuTourDe() == 1){
+                this->tank1->avancer(2, 1,this->tank1, this->tank2);
+            }else if(this->getAuTourDe() == 2){
+                this->tank1->avancer(2, 2,this->tank2, this->tank1);
+            }
+        }else if(c && c->key() == Qt::Key_Right){
+            if(this->getAuTourDe() == 1){
+                this->tank1->avancer(3, 1,this->tank1, this->tank2);
+            }else if(this->getAuTourDe() == 2){
+                this->tank1->avancer(3, 2,this->tank2, this->tank1);
+            }
+        }else if(c && c->key() == Qt::Key_Left){
+            if(this->getAuTourDe() == 1){
+                this->tank1->avancer(4, 1,this->tank1, this->tank2);
+            }else if(this->getAuTourDe() == 2){
+                this->tank1->avancer(4, 2,this->tank2, this->tank1);
+            }
+        }
+    }
+    return false;
+}
+
+int Fenetre::getAuTourDe() const{
+    return this->auTourDe;
+}
+
+void Fenetre::setAuTourDe(int n){
+    this->auTourDe = n;
 }

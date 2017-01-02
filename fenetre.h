@@ -6,6 +6,9 @@
 #include <QLabel>
 #include <QObject>
 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
 #include "terrain.h"
 #include "tank.h"
 
@@ -13,8 +16,11 @@ class Fenetre : public QWidget
 {
 public:
     Fenetre();
-
+    bool eventFilter(QObject *watched, QEvent *event);
+    int getAuTourDe() const;
+    void setAuTourDe(int n);
 private:
+    int auTourDe;
     QLabel *titre;
     Terrain *terrain;
     Tank *tank1;

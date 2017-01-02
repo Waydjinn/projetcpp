@@ -4,21 +4,17 @@
 #include <QLabel>
 #include <QKeyEvent>
 #include <QEvent>
-#include <QGraphicsRectItem>
 
 #include "terrain.h"
 
 
-class Tank : public QGraphicsRectItem
+class Tank
 {
 private:
-    void keyPressEvent ();
     int capacite; //nbr de déplacement du tank
     int obus1, obus2, obus3, posx, posy;
 
 public:
-    void keyPressEvent(QKeyEvent *event);
-
     Tank(QWidget *Fen);
     QLabel *tankJ1;
     QLabel *tankJ2;
@@ -28,7 +24,7 @@ public:
 
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
-    int avancer(int mouv); //Bouger renvoie 1 si le tank a bougé (posx et posy modifier), sinon 0
+    void avancer(int mouv, int joueur, Tank *tankJoueur, Tank *tankAdverse); //Bouger
     void finDeTour(); //Finir le tour
     void estTouche(); //Tank touché ou non
 
