@@ -97,49 +97,38 @@ int Tank::avancer(int mouv){ //Ajouter les conditons pour ne pas traverser le ta
     if(mouv == 1 && getPosY()>0){
         this->setPosX(this->getPosx());
         this->setPosY(this->getPosY()-50);
+        this->setPos(this->getPosx(), this->getPosY()-50);
         aBouge = 1;
     }//Vers le bas
     else if(mouv == 2 && getPosY()<450){
         this->setPosX(this->getPosx());
         this->setPosY(this->getPosY()+50);
+        this->setPos(this->getPosx(), this->getPosY()+50);
         aBouge = 1;
     }//Vers la droite
     else if(mouv == 3 && getPosx()<950){
         this->setPosX(this->getPosx()+50);
         this->setPosY(this->getPosY());
+        this->setPos(this->getPosx()+50, this->getPosY());
         aBouge = 1;
     }//Vers la gauche
     else if(mouv == 4 && getPosx()>0){
         this->setPosX(this->getPosx()-50);
         this->setPosY(this->getPosY());
+        this->setPos(this->getPosx()-50, this->getPosY());
         aBouge = 1;
     }
     return aBouge;
 }
 
-
-void Tank::keyPressEvent ()
-{
-    int c = 0;
-    while(1){
-        c = 0;
-
-        switch((c=getch())){
-        case KEY_UP:
-            cout << endl << "Up" << endl;//key up
-            break;
-        case KEY_DOWN:
-            cout << endl << "Down" << endl;   // key down
-            break;
-        case KEY_LEFT:
-            cout << endl << "Left" << endl;  // key left
-            break;
-        case KEY_RIGHT:
-            cout << endl << "Right" << endl;  // key right
-            break;
-        default:
-            cout << endl << "null" << endl;  // not arrow
-            break;
-        }
-    }    
+void Tank::keyPressEvent(QKeyEvent *event){
+    if(event->key() == Qt::Key_Up){
+        avancer(1);
+    }else if(event->key() == Qt::Key_Down){
+        avancer(2);
+    }else if(event->key() == Qt::Key_Left){
+        avancer(4);
+    }else if(event->key() == Qt::Key_Right){
+        avancer(3);
+    }
 }
