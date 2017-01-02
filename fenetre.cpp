@@ -46,35 +46,15 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     bouton4->hide();
 
     //Carte de jeu
-    map = new QLabel(this);
-    map->setObjectName("map");
-    terrain = new Terrain();
-    map->setGeometry(QRect(10, 10, terrain->getC(), terrain->getL()));
-    map->setPixmap(QPixmap(QString("img/map.png")));
-    map->hide();
+    terrain = new Terrain(this);
 
     //tankJ1
-    tank1 = new Tank();
+    tank1 = new Tank(this);
     tank1->setCapacite((terrain->getL()/10));
-    //Label du tank (image)
-    tankJ1 = new QLabel(this);
-    tankJ1->setObjectName("tankJ1");
-    tankJ1->setGeometry(QRect(tank1->getPosx(), tank1->getPosY(), 40, 40));
-    tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png"))); //tank1->getImage()
-    tankJ1->setScaledContents(true);
-    tankJ1->hide();
 
     //tankJ2
-    tank2 = new Tank();
+    tank2 = new Tank(this);
     tank2->setCapacite((terrain->getL()/10));
-    //Label du tank (image)
-    tankJ2 = new QLabel(this);
-    tankJ2->setObjectName("tankJ2");
-    tankJ2->setGeometry(QRect(tank2->getPosx(), tank2->getPosY(), 40, 40));
-    tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
-    tankJ2->setScaledContents(true);
-    tankJ2->hide();
-
 
     //Actions
     //Bouton 1 - Un joueur
@@ -83,9 +63,9 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), bouton3, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton4, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), map, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), tankJ1, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), tankJ2, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
     //Bouton 2 - Deux joueurs
     QObject::connect(bouton2, SIGNAL(clicked()), bouton1, SLOT(hide()));
@@ -93,12 +73,13 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), bouton3, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton4, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), map, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), tankJ1, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), tankJ2, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), terrain->carte, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
     //Bouton 3 - quitter
-    QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit())); //methode statique de QT, SIGNAL -> macro préprocesseur
+    QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit()));
+    //methode statique de QT, SIGNAL -> macro préprocesseur
     //qApp -> QT créer automatiquement un pointeur qApp qui pointe vers l'objet QApplication créer
 
     //Bouton 4 - retour menu
@@ -107,9 +88,9 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton4, SIGNAL(clicked()), bouton3, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), titre, SLOT(show()));
     QObject::connect(bouton4, SIGNAL(clicked()), bouton4, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), map, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), tankJ1, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), tankJ2, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), terrain->carte, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), tank1->tankJ1, SLOT(hide()));
+    QObject::connect(bouton4, SIGNAL(clicked()), tank2->tankJ2, SLOT(hide()));
 
     //Actions clavier
 

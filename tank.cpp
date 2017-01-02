@@ -2,16 +2,28 @@
 
 int Tank:: _nbrTank = 0;
 
-Tank::Tank()
+Tank::Tank(QWidget *Fen)
 {
     if(_nbrTank == 0){  //Tank J1
         this->posx = 20;
         this->posy = 10;
+        tankJ1 = new QLabel(Fen);
+        tankJ1->setObjectName("tankJ1");
+        tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 40, 40));
+        tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png"))); //tank1->getImage()
+        tankJ1->setScaledContents(true);
+        tankJ1->hide();
     }else if(_nbrTank == 1){ //Tank J2
         this->posx = 940;
         this->posy = 450;
+        tankJ2 = new QLabel(Fen);
+        tankJ2->setObjectName("tankJ2");
+        tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 40, 40));
+        tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
+        tankJ2->setScaledContents(true);
+        tankJ2->hide();
     }
-    this->capacite = 25;
+    this->capacite = 0;
     this->obus2 = 10;
     this->obus3 = 5;
     _nbrTank++;

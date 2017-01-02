@@ -12,8 +12,11 @@ private:
     void keyPressEvent (QKeyEvent * event);
     int capacite; //nbr de déplacement du tank
     int obus1, obus2, obus3, posx, posy;
+
 public:
-    Tank();
+    Tank(QWidget *Fen);
+    QLabel *tankJ1;
+    QLabel *tankJ2;
     static int _nbrTank;
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
