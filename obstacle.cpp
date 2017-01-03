@@ -1,7 +1,11 @@
 #include "obstacle.h"
 
 int Obstacle:: _nbrObstacle = -1;
-Point Obstacle:: _TabPoint[20];
+Point Obstacle:: _TabPoint[50];
+
+Obstacle::Obstacle(){
+
+}
 
 Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
 {

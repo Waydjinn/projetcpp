@@ -8,7 +8,7 @@
 #include "terrain.h"
 
 
-class Tank
+class Tank : public Obstacle
 {
 private:
     int capacite; //nbr de déplacement du tank
