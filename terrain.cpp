@@ -11,50 +11,27 @@ Terrain::Terrain(QWidget *Fen)
     carte->setScaledContents(true);
     carte->hide();
 
-    /*
-    //Obstacles
-    arbre1 = new QLabel(Fen);
-    arbre1->setObjectName("arbre1");
-    arbre1->setGeometry(QRect(50, 50, 50, 50));
-    arbre1->setPixmap(QPixmap(QString("img/arbre.png")));
-    arbre1->setScaledContents(true);
-    arbre1->hide();
-
-    arbre2 = new QLabel(Fen);
-    arbre2->setObjectName("arbre2");
-    arbre2->setGeometry(QRect(150, 250, 50, 50));
-    arbre2->setPixmap(QPixmap(QString("img/arbre.png")));
-    arbre2->setScaledContents(true);
-    arbre2->hide();
-
-    arbre3 = new QLabel(Fen);
-    arbre3->setObjectName("arbre3");
-    arbre3->setGeometry(QRect(250, 450, 50, 50));
-    arbre3->setPixmap(QPixmap(QString("img/arbre.png")));
-    arbre3->setScaledContents(true);
-    arbre3->hide();
-
-    arbre4 = new QLabel(Fen);
-    arbre4->setObjectName("arbre4");
-    arbre4->setGeometry(QRect(750, 350, 50, 50));
-    arbre4->setPixmap(QPixmap(QString("img/arbre.png")));
-    arbre4->setScaledContents(true);
-    arbre4->hide();
-
-    roche1 = new QLabel(Fen);
-    roche1->setObjectName("roche1");
-    roche1->setGeometry(QRect(650, 450, 50, 50));
-    roche1->setPixmap(QPixmap(QString("img/roche.png")));
-    roche1->setScaledContents(true);
-    roche1->hide();
-
-    eau1 = new QLabel(Fen);
-    eau1->setObjectName("eau1");
-    eau1->setGeometry(QRect(250, 250, 50, 50));
-    eau1->setPixmap(QPixmap(QString("img/eau.png")));
-    eau1->setScaledContents(true);
-    eau1->hide();
-    */
+    srand(time(NULL));
+    Obs1 = new Obstacle(rand()%(3-1)+1, Fen);
+    Obs2 = new Obstacle(rand()%(3-1)+1, Fen);
+    /*Obs3 = new Obstacle(1, Fen);
+    Obs4 = new Obstacle(1, Fen);
+    Obs5 = new Obstacle(1, Fen);
+    Obs6 = new Obstacle(1, Fen);
+    Obs7 = new Obstacle(1, Fen);
+    Obs8 = new Obstacle(1, Fen);
+    Obs9 = new Obstacle(1, Fen);
+    Obs10 = new Obstacle(2, Fen);
+    Obs11 = new Obstacle(2, Fen);
+    Obs12 = new Obstacle(2, Fen);
+    Obs13 = new Obstacle(2, Fen);
+    Obs14 = new Obstacle(2, Fen);
+    Obs15 = new Obstacle(2, Fen);
+    Obs16 = new Obstacle(2, Fen);
+    Obs17 = new Obstacle(3, Fen);
+    Obs18 = new Obstacle(3, Fen);
+    Obs19 = new Obstacle(3, Fen);
+    Obs20 = new Obstacle(3, Fen);*/
 
 }
 
@@ -65,3 +42,5 @@ int Terrain::getL()const{
 int Terrain::getC()const{
     return this->C;
 }
+
+

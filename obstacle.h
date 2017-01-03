@@ -5,6 +5,8 @@
 #include <time.h>  //time
 #include <stdlib.h>//srand, rand
 
+#include "point.h"
+
 class Obstacle :public QLabel
 {
 private:
@@ -12,6 +14,8 @@ private:
 
 public:
     Obstacle(int typeObstacle, QWidget *Fen);
+    static Point _TabPoint[20];
+    static int _nbrObstacle;
     int getVie() const;
     int getPosX() const;
     int getPosY() const;
@@ -20,8 +24,9 @@ public:
     void setPosX(int n);
     void setPosY(int n);
     void setType(int n);
-    int aleaObsX();
-    int aleaObsY();
+    int aleaObsX(int a, int b);
+    int aleaObsY(int a, int b);
+    int chercherObs(Point *Tab, int x, int y);
 };
 
 #endif // OBSTACLE_H

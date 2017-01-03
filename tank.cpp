@@ -74,7 +74,6 @@ void Tank::setPosY(int n){
 //Fonctions
 
 int Tank::aleaTankX(){
-    srand(time(NULL));
     if(_nbrTank == 0){
         return rand()%10;
     }else{
@@ -83,7 +82,6 @@ int Tank::aleaTankX(){
 }
 
 int Tank::aleaTankY(){
-    srand(time(NULL));
     if(_nbrTank == 0){
         return rand()%5;
     }else{

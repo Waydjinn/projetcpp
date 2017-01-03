@@ -64,6 +64,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs1, SLOT(show()));
 
 
     //Bouton 2 - Deux joueurs
