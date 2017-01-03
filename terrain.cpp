@@ -11,6 +11,7 @@ Terrain::Terrain(QWidget *Fen)
     carte->setScaledContents(true);
     carte->hide();
 
+    /*
     //Obstacles
     arbre1 = new QLabel(Fen);
     arbre1->setObjectName("arbre1");
@@ -48,11 +49,12 @@ Terrain::Terrain(QWidget *Fen)
     roche1->hide();
 
     eau1 = new QLabel(Fen);
-    eau1->setObjectName("arbre4");
+    eau1->setObjectName("eau1");
     eau1->setGeometry(QRect(250, 250, 50, 50));
     eau1->setPixmap(QPixmap(QString("img/eau.png")));
     eau1->setScaledContents(true);
     eau1->hide();
+    */
 
 }
 

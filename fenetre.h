@@ -26,7 +26,6 @@ private:
     QPushButton *bouton1;
     QPushButton *bouton2;
     QPushButton *bouton3;
-    QPushButton *bouton4;
 };
 
 #endif // FENETRE_H

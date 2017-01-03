@@ -26,26 +26,23 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     bouton1->setCursor(Qt::PointingHandCursor);  //Change la forme du curseur quand il passe sur le bouton
     bouton1->setFont(QFont("Arial", 16));    //Choix de la police et taille du bouton
     bouton1->setGeometry(320, 180, 400, 90); //Forme et emplacement du bouton
+    bouton1->setFocusPolicy(Qt::NoFocus);
 
     //Bouton Multijoueur
     bouton2 = new QPushButton("Jouer - Deux joueur", this);
     bouton2->setCursor(Qt::PointingHandCursor);
     bouton2->setFont(QFont("Arial", 16));
     bouton2->setGeometry(320, 280, 400, 90);
+    bouton2->setFocusPolicy(Qt::NoFocus);
 
     //Bouton Quitter
     bouton3 = new QPushButton("Quitter", this);
     bouton3->setCursor(Qt::PointingHandCursor);
+    bouton3->setFocusPolicy(Qt::NoFocus);
     bouton3->setFont(QFont("Arial", 16));
     bouton3->setGeometry(320, 380, 400, 90);
     bouton3->setToolTip("Arrêt de l'application");
-
-    //Boutton Retour menu
-    bouton4 = new QPushButton("Retour menu", this);
-    bouton4->setCursor(Qt::PointingHandCursor);
-    bouton4->setFont(QFont("Arial", 16));
-    bouton4->setGeometry(790, 530, 200, 60);
-    bouton4->hide();
+    //->setFocusPolicy(Qt::NoFocus);
 
     //Carte de jeu
     terrain = new Terrain(this);
@@ -64,14 +61,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), bouton2, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton3, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), titre, SLOT(hide()));
-    QObject::connect(bouton1, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre1, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre2, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre3, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->arbre4, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->roche1, SLOT(show()));
-    QObject::connect(bouton1, SIGNAL(clicked()), terrain->eau1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
@@ -81,14 +71,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), bouton2, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton3, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), titre, SLOT(hide()));
-    QObject::connect(bouton2, SIGNAL(clicked()), bouton4, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->carte, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre1, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre2, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre3, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->arbre4, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->roche1, SLOT(show()));
-    QObject::connect(bouton2, SIGNAL(clicked()), terrain->eau1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
 
@@ -97,26 +80,11 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //methode statique de QT, SIGNAL -> macro préprocesseur
     //qApp -> QT créer automatiquement un pointeur qApp qui pointe vers l'objet QApplication créer
 
-    //Bouton 4 - retour menu
-    QObject::connect(bouton4, SIGNAL(clicked()), bouton1, SLOT(show()));
-    QObject::connect(bouton4, SIGNAL(clicked()), bouton2, SLOT(show()));
-    QObject::connect(bouton4, SIGNAL(clicked()), bouton3, SLOT(show()));
-    QObject::connect(bouton4, SIGNAL(clicked()), titre, SLOT(show()));
-    QObject::connect(bouton4, SIGNAL(clicked()), bouton4, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->carte, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre1, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre2, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre3, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->arbre4, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->roche1, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), terrain->eau1, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), tank1->tankJ1, SLOT(hide()));
-    QObject::connect(bouton4, SIGNAL(clicked()), tank2->tankJ2, SLOT(hide()));
-
-    //Actions clavier
 
 }
 
+
+//Actions clavier
 bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
     if(event->type() == QEvent::KeyRelease){
         QKeyEvent *c = dynamic_cast<QKeyEvent *>(event);
@@ -124,25 +92,31 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(1, 1,this->tank1, this->tank2);
             }else if(this->getAuTourDe() == 2){
-                this->tank1->avancer(1, 2,this->tank2, this->tank1);
+                this->tank2->avancer(1, 2,this->tank2, this->tank1);
             }
         }else if(c && c->key() == Qt::Key_Down){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(2, 1,this->tank1, this->tank2);
             }else if(this->getAuTourDe() == 2){
-                this->tank1->avancer(2, 2,this->tank2, this->tank1);
+                this->tank2->avancer(2, 2,this->tank2, this->tank1);
             }
         }else if(c && c->key() == Qt::Key_Right){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(3, 1,this->tank1, this->tank2);
             }else if(this->getAuTourDe() == 2){
-                this->tank1->avancer(3, 2,this->tank2, this->tank1);
+                this->tank2->avancer(3, 2,this->tank2, this->tank1);
             }
         }else if(c && c->key() == Qt::Key_Left){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(4, 1,this->tank1, this->tank2);
             }else if(this->getAuTourDe() == 2){
-                this->tank1->avancer(4, 2,this->tank2, this->tank1);
+                this->tank2->avancer(4, 2,this->tank2, this->tank1);
+            }
+        }else if(c && c->key() == Qt::Key_Space){
+            if(this->getAuTourDe() == 1){
+                this->setAuTourDe(2);
+            }else if(this->getAuTourDe() == 2){
+                this->setAuTourDe(1);
             }
         }
     }

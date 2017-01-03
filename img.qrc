@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/new/img">
+    <qresource prefix="/img">
         <file>img/arbre.png</file>
         <file>img/eau.png</file>
         <file>img/impact.png</file>

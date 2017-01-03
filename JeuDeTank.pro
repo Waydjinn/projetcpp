@@ -7,7 +7,8 @@ HEADERS += \
     terrain.h \
     segment.h \
     point.h \
-    fenetre.h
+    fenetre.h \
+    obstacle.h
 
 SOURCES += \
     tank.cpp \
@@ -17,7 +18,8 @@ SOURCES += \
     segment.cpp \
     point.cpp \
     main.cpp \
-    fenetre.cpp
+    fenetre.cpp \
+    obstacle.cpp
 
 FORMS +=
 
