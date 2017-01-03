@@ -11,7 +11,7 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
     if(_nbrObstacle != -1){
         x = aleaObsX(19, 0)*50;
         y = aleaObsY(9, 0)*50;
-        while(chercherObs(_TabPoint, x, y)){
+        if(chercherObs(_TabPoint, x, y) == 1){
             x = aleaObsX(19, 0)*50;
             y = aleaObsY(9, 0)*50;
         }
@@ -20,34 +20,34 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
         y = aleaObsY(9, 0)*50;
     }
 
-        if(typeObstacle == 1){ //Arbres
-            setPixmap(QPixmap(":/img/img/arbre.png"));
-            vie = 1;
-            setGeometry(50, 50, 50, 50);
-            _nbrObstacle++;
-            _TabPoint[_nbrObstacle].setX(x);
-            _TabPoint[_nbrObstacle].setY(y);
-        }else if(typeObstacle == 2){ //Rochers
-            setPixmap(QPixmap(":/img/img/roche.png"));
-            vie = 7;
-            setGeometry(x, y, 50, 50);
-            _nbrObstacle++;
-            _TabPoint[_nbrObstacle].setX(x);
-            _TabPoint[_nbrObstacle].setY(y);
-        }else if(typeObstacle == 3){ //Eau
-            setPixmap(QPixmap(":/img/img/eau.png"));
-            vie = 99999;
-            setGeometry(x, y, 50, 50);
-            _nbrObstacle++;
-            _TabPoint[_nbrObstacle].setX(x);
-            _TabPoint[_nbrObstacle].setY(y);
-        }
-        setScaledContents(true);
-        hide();
+    if(typeObstacle == 1){ //Arbres
+        setPixmap(QPixmap(":/img/img/arbre.png"));
+        vie = 1;
+        setGeometry(x, y, 50, 50);
+        _nbrObstacle++;
+        _TabPoint[_nbrObstacle].setX(x);
+        _TabPoint[_nbrObstacle].setY(y);
+    }else if(typeObstacle == 2){ //Rochers
+        setPixmap(QPixmap(":/img/img/roche.png"));
+        vie = 7;
+        setGeometry(x, y, 50, 50);
+        _nbrObstacle++;
+        _TabPoint[_nbrObstacle].setX(x);
+        _TabPoint[_nbrObstacle].setY(y);
+    }else if(typeObstacle == 3){ //Eau
+        setPixmap(QPixmap(":/img/img/eau.png"));
+        vie = 99999;
+        setGeometry(x, y, 50, 50);
+        _nbrObstacle++;
+        _TabPoint[_nbrObstacle].setX(x);
+        _TabPoint[_nbrObstacle].setY(y);
+    }
+    setScaledContents(true);
+    hide();
 }
 
 int Obstacle::chercherObs(Point *Tab, int x, int y){
-    for(int i = 0; i<_nbrObstacle; i++){
+    for(int i = 0; i <= _nbrObstacle; i++){
         if(Tab[i].getX() == x && Tab[i].getY() == y){
             return 0;
         }

@@ -2,9 +2,9 @@
 #define OBSTACLE_H
 
 #include <QLabel>
-#include <time.h>  //time
-#include <stdlib.h>//srand, rand
-
+#include <cstdlib>
+#include <ctime>
+#include <cstdio>
 #include "point.h"
 
 class Obstacle :public QLabel
