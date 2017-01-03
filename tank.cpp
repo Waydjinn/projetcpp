@@ -4,16 +4,16 @@ int Tank:: _nbrTank = 0;
 
 Tank::Tank(QWidget *Fen)
 {
+
     if(_nbrTank == 0){  //Tank J1
         this->posx = aleaTankX()*50;
         this->posy = aleaTankY()*50;
         for(int i = 0; i<=20; i++){
-            if(_TabPoint[i].getX() == this->getPosX() && _TabPoint[i].getY() == this->getPosY()){
+            while(_TabPoint[i].getX() == this->getPosx() && _TabPoint[i].getY() == this->getPosY()){
                 this->posx = aleaTankX()*50;
                 this->posy = aleaTankY()*50;
             }
         }
-
         tankJ1 = new QLabel(Fen);
         tankJ1->setObjectName("tankJ1");
         tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
@@ -23,6 +23,12 @@ Tank::Tank(QWidget *Fen)
     }else if(_nbrTank == 1){ //Tank J2
         this->posx = aleaTankX()*50;
         this->posy = aleaTankY()*50;
+        for(int i = 0; i<=20; i++){
+            while(_TabPoint[i].getX() == this->getPosx() && _TabPoint[i].getY() == this->getPosY()){
+                this->posx = aleaTankX()*50;
+                this->posy = aleaTankY()*50;
+            }
+        }
         tankJ2 = new QLabel(Fen);
         tankJ2->setObjectName("tankJ2");
         tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));

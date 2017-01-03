@@ -12,6 +12,7 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
 
     int x;
     int y;
+
     if(_nbrObstacle != -1){
         x = aleaObsX(19, 0)*50;
         y = aleaObsY(9, 0)*50;
@@ -50,9 +51,12 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
     hide();
 }
 
+#include <QDebug>
 int Obstacle::chercherObs(Point *Tab, int x, int y){
     for(int i = 0; i <= _nbrObstacle; i++){
-        if(Tab[i].getX() == x && Tab[i].getY() == y){
+        qDebug() << "x :" << x << "Tab[i].getX() :" << Tab[i].getX() ;
+        qDebug() << "y :" << y << "Tab[i].getY() :" << Tab[i].getY() ;
+        while(Tab[i].getX() == x && Tab[i].getY() == y){
             return 0;
         }
     }
@@ -63,27 +67,27 @@ int Obstacle::getVie() const{
     return this->vie;
 }
 
-int Obstacle::getPosX() const{
+int Obstacle::getPosObsX() const{
     return this->posX;
 }
 
-int Obstacle::getPosY() const{
-    return this->getPosY();
+int Obstacle::getPosObsY() const{
+    return this->posY;
 }
 
 int Obstacle::getType() const{
-    return this->getType();
+    return this->type;
 }
 
 void Obstacle::setVie(int n){
     this->vie = n;
 }
 
-void Obstacle::setPosX(int n){
+void Obstacle::setPosObsX(int n){
     this->posX = n;
 }
 
-void Obstacle::setPosY(int n){
+void Obstacle::setPosObsY(int n){
     this->posY = n;
 }
 

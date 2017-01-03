@@ -22,6 +22,8 @@ public:
     int aleaTankX();
     int aleaTankY();
 
+    int verif(Tank *tankJoueur);
+
     void viser(); //Tourner le canon et ajuster angle
     void tirer(); //Tirer un obus après avoir visé
     void avancer(int mouv, int joueur, Tank *tankJoueur, Tank *tankAdverse); //Bouger
