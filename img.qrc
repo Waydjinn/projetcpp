@@ -1,1 +1,17 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/new/img">
+        <file>img/arbre.png</file>
+        <file>img/eau.png</file>
+        <file>img/impact.png</file>
+        <file>img/map.png</file>
+        <file>img/roche.png</file>
+        <file>img/TankBas.png</file>
+        <file>img/TankBasJ2.png</file>
+        <file>img/TankDroit.png</file>
+        <file>img/TankDroitJ2.png</file>
+        <file>img/TankGauche.png</file>
+        <file>img/TankGaucheJ2.png</file>
+        <file>img/TankHaut.png</file>
+        <file>img/TankHautJ2.png</file>
+    </qresource>
+</RCC>

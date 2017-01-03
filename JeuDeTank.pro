@@ -21,5 +21,6 @@ SOURCES += \
 
 FORMS +=
 
-RESOURCES +=
+RESOURCES += \
+    img.qrc
 
