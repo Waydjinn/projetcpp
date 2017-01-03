@@ -2,8 +2,10 @@
 #define OBSTACLE_H
 
 #include <QLabel>
+#include <time.h>  //time
+#include <stdlib.h>//srand, rand
 
-class Obstacle
+class Obstacle :public QLabel
 {
 private:
     int vie, posX, posY, type;
@@ -18,6 +20,8 @@ public:
     void setPosX(int n);
     void setPosY(int n);
     void setType(int n);
+    int aleaObsX();
+    int aleaObsY();
 };
 
 #endif // OBSTACLE_H

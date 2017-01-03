@@ -118,6 +118,8 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
             }else if(this->getAuTourDe() == 2){
                 this->setAuTourDe(1);
             }
+        }else if(c && c->key() == Qt::Key_Escape){
+            this->close();
         }
     }
     return false;
