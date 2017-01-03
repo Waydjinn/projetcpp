@@ -10,7 +10,7 @@ Tank::Tank(QWidget *Fen)
         tankJ1 = new QLabel(Fen);
         tankJ1->setObjectName("tankJ1");
         tankJ1->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
-        tankJ1->setPixmap(QPixmap(QString("img/TankDroit.png")));
+        tankJ1->setPixmap(QPixmap(":/img/img/TankDroit.png"));
         tankJ1->setScaledContents(true);
         tankJ1->hide();
     }else if(_nbrTank == 1){ //Tank J2
@@ -19,7 +19,7 @@ Tank::Tank(QWidget *Fen)
         tankJ2 = new QLabel(Fen);
         tankJ2->setObjectName("tankJ2");
         tankJ2->setGeometry(QRect(this->getPosx(), this->getPosY(), 50, 50));
-        tankJ2->setPixmap(QPixmap(QString("img/TankGaucheJ2.png")));
+        tankJ2->setPixmap(QPixmap(":/img/img/TankGaucheJ2.png"));
         tankJ2->setScaledContents(true);
         tankJ2->hide();
     }
@@ -99,10 +99,10 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->setPosY(this->getPosY()-50);
                 if(joueur == 1){
                     this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ1->setPixmap(QString("img/TankHaut.png"));
+                    this->tankJ1->setPixmap(QPixmap(":/img/img/TankHaut.png"));
                 }else if(joueur == 2){
                     this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ2->setPixmap(QString("img/TankHautJ2.png"));
+                    this->tankJ2->setPixmap(QPixmap(":/img/img/TankHautJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
             }
@@ -112,10 +112,10 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->setPosY(this->getPosY()+50);
                 if(joueur == 1){
                     this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ1->setPixmap(QString("img/TankBas.png"));
+                    this->tankJ1->setPixmap(QPixmap(":/img/img/TankBas.png"));
                 }else if(joueur == 2){
                     this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ2->setPixmap(QString("img/TankBasJ2.png"));
+                    this->tankJ2->setPixmap(QPixmap(":/img/img/TankBasJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
             }
@@ -125,10 +125,10 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->setPosX(this->getPosx()+50);
                 if(joueur == 1){
                     this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ1->setPixmap(QString("img/TankDroit.png"));
+                    this->tankJ1->setPixmap(QPixmap(":/img/img/TankDroit.png"));
                 }else if(joueur == 2){
                     this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ2->setPixmap(QString("img/TankDroitJ2.png"));
+                    this->tankJ2->setPixmap(QPixmap(":/img/img/TankDroitJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
             }
@@ -138,10 +138,10 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->setPosX(this->getPosx()-50);
                 if(joueur == 1){
                     this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                    this->tankJ1->setPixmap(QString("img/TankGauche.png"));
+                    this->tankJ1->setPixmap(QPixmap(":/img/img/TankGauche.png"));
                 }else if(joueur == 2){
                     this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ2->setPixmap(QString("img/TankGaucheJ2.png"));
+                this->tankJ2->setPixmap(QPixmap(":/img/img/TankGaucheJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
             }

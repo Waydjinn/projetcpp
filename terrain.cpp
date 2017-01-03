@@ -7,7 +7,7 @@ Terrain::Terrain(QWidget *Fen)
     carte = new QLabel(Fen);
     carte->setObjectName("carte");
     carte->setGeometry(QRect(0, 0, this->getC(), this->getL()));
-    carte->setPixmap(QPixmap(QString("img/map.png")));
+    carte->setPixmap(QPixmap(":/img/img/map.png"));
     carte->setScaledContents(true);
     carte->hide();
 
