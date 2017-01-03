@@ -47,6 +47,21 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Carte de jeu
     terrain = new Terrain(this);
 
+
+
+    //QSlider
+        QSlider * slider1 = new QSlider(Qt::Horizontal,this);
+
+        slider1 -> setMinimum(0);
+        slider1 -> setMaximum(100);
+        slider1 -> setGeometry(50,550,100,15);
+        slider1 -> hide();
+
+        QSlider * slider2 = new QSlider(Qt::Vertical,this);
+        slider2 -> setMinimum(0);
+        slider2 -> setMaximum(100);
+        slider2 -> setGeometry(160,500,15,100);
+        slider2 -> hide();
     //tankJ1
     tank1 = new Tank(this);
     tank1->setCapacite((terrain->getL()/10));
@@ -114,6 +129,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs48, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs49, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), slider1, SLOT(show()));
+
 
 
 
