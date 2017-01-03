@@ -95,48 +95,56 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
     if(this->getCapacite() > 0){
         //Vers le haut
         if(mouv == 1 && getPosY()>0){
-            this->setPosY(this->getPosY()-50);
-            if(joueur == 1){
-                this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ1->setPixmap(QString("img/TankHaut.png"));
-            }else if(joueur == 2){
-                this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ2->setPixmap(QString("img/TankHautJ2.png"));
+            if((tankJoueur->getPosY()-50 != tankAdverse->getPosY()) || (tankJoueur->getPosx() != tankAdverse->getPosx())){
+                this->setPosY(this->getPosY()-50);
+                if(joueur == 1){
+                    this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ1->setPixmap(QString("img/TankHaut.png"));
+                }else if(joueur == 2){
+                    this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ2->setPixmap(QString("img/TankHautJ2.png"));
+                }
+                this->setCapacite(this->getCapacite()-1);
             }
-            this->setCapacite(this->getCapacite()-1);
         }//Vers le bas
         else if(mouv == 2 && getPosY()<450){
-            this->setPosY(this->getPosY()+50);
-            if(joueur == 1){
-                this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ1->setPixmap(QString("img/TankBas.png"));
-            }else if(joueur == 2){
-                this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ2->setPixmap(QString("img/TankBasJ2.png"));
+            if((tankJoueur->getPosY()+50 != tankAdverse->getPosY()) || (tankJoueur->getPosx() != tankAdverse->getPosx())){
+                this->setPosY(this->getPosY()+50);
+                if(joueur == 1){
+                    this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ1->setPixmap(QString("img/TankBas.png"));
+                }else if(joueur == 2){
+                    this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ2->setPixmap(QString("img/TankBasJ2.png"));
+                }
+                this->setCapacite(this->getCapacite()-1);
             }
-            this->setCapacite(this->getCapacite()-1);
         }//Vers la droite
         else if(mouv == 3 && getPosx()<950){
-            this->setPosX(this->getPosx()+50);
-            if(joueur == 1){
-                this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ1->setPixmap(QString("img/TankDroit.png"));
-            }else if(joueur == 2){
-                this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ2->setPixmap(QString("img/TankDroitJ2.png"));
+            if((tankJoueur->getPosY() != tankAdverse->getPosY()) || (tankJoueur->getPosx()+50 != tankAdverse->getPosx())){
+                this->setPosX(this->getPosx()+50);
+                if(joueur == 1){
+                    this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ1->setPixmap(QString("img/TankDroit.png"));
+                }else if(joueur == 2){
+                    this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ2->setPixmap(QString("img/TankDroitJ2.png"));
+                }
+                this->setCapacite(this->getCapacite()-1);
             }
-            this->setCapacite(this->getCapacite()-1);
         }//Vers la gauche
         else if(mouv == 4 && getPosx()>0){
-            this->setPosX(this->getPosx()-50);
-            if(joueur == 1){
-                this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-                this->tankJ1->setPixmap(QString("img/TankGauche.png"));
-            }else if(joueur == 2){
-                this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
-             this->tankJ2->setPixmap(QString("img/TankGaucheJ2.png"));
+            if((tankJoueur->getPosY() != tankAdverse->getPosY()) || (tankJoueur->getPosx()-50 != tankAdverse->getPosx())){
+                this->setPosX(this->getPosx()-50);
+                if(joueur == 1){
+                    this->tankJ1->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                    this->tankJ1->setPixmap(QString("img/TankGauche.png"));
+                }else if(joueur == 2){
+                    this->tankJ2->setGeometry(this->getPosx(), this->getPosY(), 50, 50);
+                this->tankJ2->setPixmap(QString("img/TankGaucheJ2.png"));
+                }
+                this->setCapacite(this->getCapacite()-1);
             }
-            this->setCapacite(this->getCapacite()-1);
         }
     }
 }

@@ -6,8 +6,6 @@
 #include <QLabel>
 #include <QObject>
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
 
 #include "terrain.h"
 #include "tank.h"
