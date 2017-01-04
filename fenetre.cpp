@@ -50,18 +50,19 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
 
     //QSlider
-        QSlider * slider1 = new QSlider(Qt::Horizontal,this);
+    QSlider * slider1 = new QSlider(Qt::Horizontal,this);
+    slider1 -> setMinimum(0);
+    slider1 -> setMaximum(360);
+    slider1 -> setGeometry(0,585,100,15);
+    slider1 -> hide();
 
-        slider1 -> setMinimum(0);
-        slider1 -> setMaximum(100);
-        slider1 -> setGeometry(50,550,100,15);
-        slider1 -> hide();
+    QSlider * slider2 = new QSlider(Qt::Vertical,this);
+    slider2 -> setMinimum(0);
+    slider2 -> setMaximum(90);
+    slider2 -> setGeometry(150,510,15,90);
+    slider2 -> hide();
 
-        QSlider * slider2 = new QSlider(Qt::Vertical,this);
-        slider2 -> setMinimum(0);
-        slider2 -> setMaximum(100);
-        slider2 -> setGeometry(160,500,15,100);
-        slider2 -> hide();
+
     //tankJ1
     tank1 = new Tank(this);
     tank1->setCapacite((terrain->getL()/10));
@@ -79,6 +80,13 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
+
+    /*
+    for(int i=0; i<50; i++){
+        QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs[i], SLOT(show()));
+    }
+    */
+
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs2, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs3, SLOT(show()));
@@ -129,7 +137,9 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs48, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs49, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
+
     QObject::connect(bouton1, SIGNAL(clicked()), slider1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), slider2, SLOT(show()));
 
 
 
@@ -192,6 +202,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->Obs48, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->Obs49, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), slider1, SLOT(show()));
+    QObject::connect(bouton2, SIGNAL(clicked()), slider2, SLOT(show()));
 
     //Bouton 3 - quitter
     QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit()));
