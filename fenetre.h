@@ -20,6 +20,7 @@ public:
 private:
     int auTourDe;
     QLabel *titre;
+
     Terrain *terrain;
     Tank *tank1;
     Tank *tank2;

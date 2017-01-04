@@ -13,5 +13,6 @@
         <file>img/TankGaucheJ2.png</file>
         <file>img/TankHaut.png</file>
         <file>img/TankHautJ2.png</file>
+        <file>img/fondnoir.png</file>
     </qresource>
 </RCC>

@@ -54,13 +54,13 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
         slider1 -> setMinimum(0);
         slider1 -> setMaximum(100);
-        slider1 -> setGeometry(50,550,100,15);
+        slider1 -> setGeometry(50,580,90,15);
         slider1 -> hide();
 
         QSlider * slider2 = new QSlider(Qt::Vertical,this);
         slider2 -> setMinimum(0);
         slider2 -> setMaximum(100);
-        slider2 -> setGeometry(160,500,15,100);
+        slider2 -> setGeometry(10,510,15,90);
         slider2 -> hide();
     //tankJ1
     tank1 = new Tank(this);
@@ -72,11 +72,13 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
     //Actions
     //Bouton 1 - Un joueur
+
     QObject::connect(bouton1, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton2, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton3, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), titre, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->carte, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), terrain->fond, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank1->tankJ1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tank2->tankJ2, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs1, SLOT(show()));
@@ -130,8 +132,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs49, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), slider1, SLOT(show()));
-
-
+    QObject::connect(bouton1, SIGNAL(clicked()), slider2, SLOT(show()));
 
 
     //Bouton 2 - Deux joueurs

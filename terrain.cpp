@@ -12,6 +12,14 @@ Terrain::Terrain(QWidget *Fen)
     carte->hide();
     srand(time(NULL));
 
+    fond = new QLabel(Fen);
+    fond->setObjectName("fond");
+    fond->setGeometry(QRect(0,500,1000,100));
+    fond->setPixmap(QPixmap(":/img/img/fondnoir.png"));
+    fond->setScaledContents(true);
+    fond->hide();
+
+
 
 
     Obs1 = new Obstacle(rand()%(3-1+1)+1, Fen);Obs2 = new Obstacle(rand()%(3-1+1)+1, Fen);
