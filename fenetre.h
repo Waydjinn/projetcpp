@@ -27,6 +27,7 @@ private:
     int angleCanon;
 
     int auTourDe;
+    QLCDNumber *lcd2;
     QLabel *titre;
     Terrain *terrain;
     Tank *tank1;

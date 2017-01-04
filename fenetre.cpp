@@ -52,6 +52,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     lcd->setGeometry(0,500,50, 50);
     lcd->hide();
     //Labels
+    //Angle Y du canon
     QLabel *angleLabel = new QLabel("Angle tir", this);
     angleLabel->setGeometry(QRect(0, 520, 80, 80));
     QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -65,6 +66,17 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     font2.setWeight(10);
     angleLabel->setFont(font2);
     angleLabel->hide();
+
+    //Tour de
+    QLabel *tour = new QLabel("Au tour de joueur :", this);
+    tour->setGeometry(170, 460, 120, 120);
+    lcd2 = new QLCDNumber(1, this);
+    lcd2->setSegmentStyle(QLCDNumber::Filled);
+    lcd2->setGeometry(280,505,25,25);
+    lcd2->display(this->getAuTourDe());
+    tour->hide();
+    lcd2->hide();
+
 
     //QSlider
     QSlider * slider1 = new QSlider(Qt::Horizontal,this);
@@ -167,6 +179,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), slider2, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), angleLabel, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), lcd, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tour, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcd2, SLOT(show()));
 
 
 
@@ -272,8 +286,10 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
         }else if(c && c->key() == Qt::Key_Space){
             if(this->getAuTourDe() == 1){
                 this->setAuTourDe(2);
+                this->lcd2->display(this->getAuTourDe());
             }else if(this->getAuTourDe() == 2){
                 this->setAuTourDe(1);
+                this->lcd2->display(this->getAuTourDe());
             }
         }else if(c && c->key() == Qt::Key_Escape){
             this->close();
@@ -281,6 +297,8 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
     }
     return false;
 }
+
+//Fonctions
 
 int Fenetre::getAuTourDe() const{
     return this->auTourDe;
