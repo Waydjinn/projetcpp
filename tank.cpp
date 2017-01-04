@@ -1,7 +1,6 @@
 #include "tank.h"
 
 int Tank:: _nbrTank = 0;
-
 Tank::Tank(QWidget *Fen)
 {
 
@@ -9,7 +8,7 @@ Tank::Tank(QWidget *Fen)
         this->posx = aleaTankX()*50;
         this->posy = aleaTankY()*50;
         for(int i = 0; i<=20; i++){
-            while(_TabPoint[i].getX() == this->getPosx() && _TabPoint[i].getY() == this->getPosY()){
+            while(_TabPoint[i].getY() == this->getPosx() && _TabPoint[i].getX() == this->getPosY()){
                 this->posx = aleaTankX()*50;
                 this->posy = aleaTankY()*50;
             }
@@ -105,6 +104,7 @@ int Tank::aleaTankY(){
 void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //Ajouter les conditons pour ne pas traverser le tank adverse ou les obstacles
     if(this->getCapacite() > 0){
         //Vers le haut
+        if(verif(tankJoueur, mouv) == 0){
         if(mouv == 1 && getPosY()>0){
             if((tankJoueur->getPosY()-50 != tankAdverse->getPosY()) || (tankJoueur->getPosx() != tankAdverse->getPosx())){
                 this->setPosY(this->getPosY()-50);
@@ -157,6 +157,31 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->setCapacite(this->getCapacite()-1);
             }
         }
+        }
     }
+}
+
+int Tank::verif(Tank *tankJoueur, int mouv){
+    for(int i = 0; i < _nbrObstacle; i++){
+        if(mouv == 1){
+            if(_TabPoint[i].getX() == tankJoueur->getPosx() && _TabPoint[i].getY() == tankJoueur->getPosY()-50){
+                return 1;
+            }
+        }else if(mouv == 2){
+            if(_TabPoint[i].getX() == tankJoueur->getPosx() && _TabPoint[i].getY() == tankJoueur->getPosY()+50){
+                return 1;
+            }
+        }else if(mouv == 3){
+            if(_TabPoint[i].getX() == tankJoueur->getPosx()+50 && _TabPoint[i].getY() == tankJoueur->getPosY()){
+                return 1;
+            }
+        }else if(mouv == 4){
+            if(_TabPoint[i].getX() == tankJoueur->getPosx()-50 && _TabPoint[i].getY() == tankJoueur->getPosY()){
+                return 1;
+            }
+        }
+
+    }
+    return 0;
 }
 

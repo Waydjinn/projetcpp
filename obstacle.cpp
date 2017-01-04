@@ -12,11 +12,10 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
 
     int x;
     int y;
-
     if(_nbrObstacle != -1){
         x = aleaObsX(19, 0)*50;
         y = aleaObsY(9, 0)*50;
-        if(chercherObs(_TabPoint, x, y) == 1){
+        while(chercherObs(_TabPoint, x, y) == 1){
             x = aleaObsX(19, 0)*50;
             y = aleaObsY(9, 0)*50;
         }
@@ -51,16 +50,14 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
     hide();
 }
 
-#include <QDebug>
+
 int Obstacle::chercherObs(Point *Tab, int x, int y){
     for(int i = 0; i <= _nbrObstacle; i++){
-        qDebug() << "x :" << x << "Tab[i].getX() :" << Tab[i].getX() ;
-        qDebug() << "y :" << y << "Tab[i].getY() :" << Tab[i].getY() ;
         while(Tab[i].getX() == x && Tab[i].getY() == y){
-            return 0;
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 int Obstacle::getVie() const{
