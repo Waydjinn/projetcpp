@@ -47,21 +47,38 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Carte de jeu
     terrain = new Terrain(this);
 
-
+    //QLCDNumber
+    QLCDNumber *lcd = new QLCDNumber(2, this);
+    lcd->setSegmentStyle(QLCDNumber::Filled);
+    lcd->setGeometry(0,500,50, 50);
+    lcd->hide();
+    //Labels
+    QLabel *angleLabel = new QLabel("Angle tir", this);
+    angleLabel->setGeometry(QRect(0, 520, 80, 80));
+    QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    sizePolicy2.setHorizontalStretch(6);
+    sizePolicy2.setVerticalStretch(6);
+    sizePolicy2.setHeightForWidth(angleLabel->sizePolicy().hasHeightForWidth());
+    angleLabel->setSizePolicy(sizePolicy2);
+    QFont font2;
+    font2.setPointSize(10);
+    font2.setBold(true);
+    font2.setWeight(10);
+    angleLabel->setFont(font2);
+    angleLabel->hide();
 
     //QSlider
     QSlider * slider1 = new QSlider(Qt::Horizontal,this);
-    slider1 -> setMinimum(0);
-    slider1 -> setMaximum(360);
+    slider1->setRange(0, 360);
+    slider1->setValue(0);
     slider1 -> setGeometry(0,585,100,15);
     slider1 -> hide();
 
     QSlider * slider2 = new QSlider(Qt::Vertical,this);
-    slider2 -> setMinimum(0);
-    slider2 -> setMaximum(90);
+    slider2 -> setRange(0, 90);
+    slider2 -> setValue(0);
     slider2 -> setGeometry(150,510,15,90);
     slider2 -> hide();
-
 
     //tankJ1
     tank1 = new Tank(this);
@@ -72,6 +89,9 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     tank2->setCapacite((terrain->getL()/10));
 
     //Actions
+    //Slider 2
+    QObject::connect(slider2, SIGNAL(valueChanged(int)), lcd, SLOT(display(int)));
+
     //Bouton 1 - Un joueur
     QObject::connect(bouton1, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton1, SIGNAL(clicked()), bouton2, SLOT(hide()));
@@ -140,6 +160,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
     QObject::connect(bouton1, SIGNAL(clicked()), slider1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), slider2, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), angleLabel, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcd, SLOT(show()));
 
 
 

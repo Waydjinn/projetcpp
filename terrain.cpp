@@ -19,6 +19,7 @@ Terrain::Terrain(QWidget *Fen)
     }
     */
 
+
     Obs1 = new Obstacle(Fen);Obs2 = new Obstacle(Fen);
     Obs3 = new Obstacle(Fen);Obs4 = new Obstacle(Fen);
     Obs5 = new Obstacle(Fen);Obs6 = new Obstacle(Fen);
