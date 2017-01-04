@@ -5,8 +5,9 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QObject>
-
 #include <QSlider>
+#include <QLCDNumber>
+
 #include "terrain.h"
 #include "tank.h"
 

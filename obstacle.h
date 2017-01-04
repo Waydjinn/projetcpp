@@ -14,16 +14,16 @@ private:
 
 public:
     Obstacle();
-    Obstacle(int typeObstacle, QWidget *Fen);
+    Obstacle(QWidget *Fen);
     static Point _TabPoint[50];
     static int _nbrObstacle;
     int getVie() const;
-    int getPosX() const;
-    int getPosY() const;
+    int getPosObsX() const;
+    int getPosObsY() const;
     int getType() const;
     void setVie(int n);
-    void setPosX(int n);
-    void setPosY(int n);
+    void setPosObsX(int n);
+    void setPosObsY(int n);
     void setType(int n);
     int aleaObsX(int a, int b);
     int aleaObsY(int a, int b);

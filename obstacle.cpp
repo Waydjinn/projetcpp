@@ -7,15 +7,17 @@ Obstacle::Obstacle(){
 
 }
 
-Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
+Obstacle::Obstacle(QWidget *Fen) : QLabel(Fen)
 {
 
     int x;
     int y;
+    type = rand()%(3-1+1)+1;
+
     if(_nbrObstacle != -1){
         x = aleaObsX(19, 0)*50;
         y = aleaObsY(9, 0)*50;
-        if(chercherObs(_TabPoint, x, y) == 1){
+        while(chercherObs(_TabPoint, x, y) == 1){
             x = aleaObsX(19, 0)*50;
             y = aleaObsY(9, 0)*50;
         }
@@ -24,21 +26,21 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
         y = aleaObsY(9, 0)*50;
     }
 
-    if(typeObstacle == 1){ //Arbres
+    if(this->getType() == 1){ //Arbres
         setPixmap(QPixmap(":/img/img/arbre.png"));
         vie = 1;
         setGeometry(x, y, 50, 50);
         _nbrObstacle++;
         _TabPoint[_nbrObstacle].setX(x);
         _TabPoint[_nbrObstacle].setY(y);
-    }else if(typeObstacle == 2){ //Rochers
+    }else if(this->getType() == 2){ //Rochers
         setPixmap(QPixmap(":/img/img/roche.png"));
         vie = 7;
         setGeometry(x, y, 50, 50);
         _nbrObstacle++;
         _TabPoint[_nbrObstacle].setX(x);
         _TabPoint[_nbrObstacle].setY(y);
-    }else if(typeObstacle == 3){ //Eau
+    }else if(this->getType() == 3){ //Eau
         setPixmap(QPixmap(":/img/img/eau.png"));
         vie = 99999;
         setGeometry(x, y, 50, 50);
@@ -50,40 +52,41 @@ Obstacle::Obstacle(int typeObstacle, QWidget *Fen) : QLabel(Fen)
     hide();
 }
 
+
 int Obstacle::chercherObs(Point *Tab, int x, int y){
     for(int i = 0; i <= _nbrObstacle; i++){
-        if(Tab[i].getX() == x && Tab[i].getY() == y){
-            return 0;
+        while(Tab[i].getX() == x && Tab[i].getY() == y){
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 int Obstacle::getVie() const{
     return this->vie;
 }
 
-int Obstacle::getPosX() const{
+int Obstacle::getPosObsX() const{
     return this->posX;
 }
 
-int Obstacle::getPosY() const{
-    return this->getPosY();
+int Obstacle::getPosObsY() const{
+    return this->posY;
 }
 
 int Obstacle::getType() const{
-    return this->getType();
+    return this->type;
 }
 
 void Obstacle::setVie(int n){
     this->vie = n;
 }
 
-void Obstacle::setPosX(int n){
+void Obstacle::setPosObsX(int n){
     this->posX = n;
 }
 
-void Obstacle::setPosY(int n){
+void Obstacle::setPosObsY(int n){
     this->posY = n;
 }
 
