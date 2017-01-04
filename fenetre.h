@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QObject>
 
-
+#include <QSlider>
 #include "terrain.h"
 #include "tank.h"
 
