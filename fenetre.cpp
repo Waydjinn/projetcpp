@@ -42,7 +42,6 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     bouton3->setFont(QFont("Arial", 16));
     bouton3->setGeometry(320, 380, 400, 90);
     bouton3->setToolTip("Arrêt de l'application");
-    //->setFocusPolicy(Qt::NoFocus);
 
     //Carte de jeu
     terrain = new Terrain(this);
@@ -53,6 +52,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     lcd->setGeometry(0,500,50, 50);
     lcd->hide();
     //Labels
+    //Angle Y du canon
     QLabel *angleLabel = new QLabel("Angle tir", this);
     angleLabel->setGeometry(QRect(0, 520, 80, 80));
     QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -66,6 +66,17 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     font2.setWeight(10);
     angleLabel->setFont(font2);
     angleLabel->hide();
+
+    //Tour de
+    QLabel *tour = new QLabel("Au tour de joueur :", this);
+    tour->setGeometry(170, 460, 120, 120);
+    lcd2 = new QLCDNumber(1, this);
+    lcd2->setSegmentStyle(QLCDNumber::Filled);
+    lcd2->setGeometry(280,505,25,25);
+    lcd2->display(this->getAuTourDe());
+    tour->hide();
+    lcd2->hide();
+
 
     //QSlider
 
@@ -82,6 +93,11 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     slider2 -> hide();
 
 
+    //Canon
+    angleCanon = slider1->value();
+
+
+
     //tankJ1
     tank1 = new Tank(this);
     tank1->setCapacite((terrain->getL()/10));
@@ -91,6 +107,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     tank2->setCapacite((terrain->getL()/10));
 
     //Actions
+
     //Slider 2
     QObject::connect(slider2, SIGNAL(valueChanged(int)), lcd, SLOT(display(int)));
 
@@ -167,6 +184,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
     QObject::connect(bouton1, SIGNAL(clicked()), angleLabel, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), lcd, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), tour, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcd2, SLOT(show()));
 
 
 
@@ -273,8 +292,10 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
         }else if(c && c->key() == Qt::Key_Space){
             if(this->getAuTourDe() == 1){
                 this->setAuTourDe(2);
+                this->lcd2->display(this->getAuTourDe());
             }else if(this->getAuTourDe() == 2){
                 this->setAuTourDe(1);
+                this->lcd2->display(this->getAuTourDe());
             }
         }else if(c && c->key() == Qt::Key_Escape){
             this->close();
@@ -283,10 +304,29 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
     return false;
 }
 
+//Fonctions
+
 int Fenetre::getAuTourDe() const{
     return this->auTourDe;
 }
 
 void Fenetre::setAuTourDe(int n){
     this->auTourDe = n;
+}
+
+void Fenetre::paintEvent(QPaintEvent *event){
+
+    QPainter painter(this);
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(4);
+    painter.setPen(pen);
+
+    //painter.drawLine(110, 520, 110, 540);
+    //painter.translate(0, height());
+    painter.rotate(angleCanon);
+    painter.drawRect(QRect(110, 550, 20, 0));
+
+
 }
