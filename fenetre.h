@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QSlider>
 #include <QLCDNumber>
+#include <QPainter>
 
 #include "terrain.h"
 #include "tank.h"
@@ -18,7 +19,13 @@ public:
     bool eventFilter(QObject *watched, QEvent *event);
     int getAuTourDe() const;
     void setAuTourDe(int n);
+
+    void paintEvent(QPaintEvent *event);
+
 private:
+
+    int angleCanon;
+
     int auTourDe;
     QLabel *titre;
     Terrain *terrain;

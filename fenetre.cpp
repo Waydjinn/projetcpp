@@ -42,7 +42,6 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     bouton3->setFont(QFont("Arial", 16));
     bouton3->setGeometry(320, 380, 400, 90);
     bouton3->setToolTip("Arrêt de l'application");
-    //->setFocusPolicy(Qt::NoFocus);
 
     //Carte de jeu
     terrain = new Terrain(this);
@@ -80,6 +79,11 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     slider2 -> setGeometry(150,510,15,90);
     slider2 -> hide();
 
+    //Canon
+    angleCanon = slider1->value();
+
+
+
     //tankJ1
     tank1 = new Tank(this);
     tank1->setCapacite((terrain->getL()/10));
@@ -89,6 +93,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     tank2->setCapacite((terrain->getL()/10));
 
     //Actions
+
     //Slider 2
     QObject::connect(slider2, SIGNAL(valueChanged(int)), lcd, SLOT(display(int)));
 
@@ -283,4 +288,21 @@ int Fenetre::getAuTourDe() const{
 
 void Fenetre::setAuTourDe(int n){
     this->auTourDe = n;
+}
+
+void Fenetre::paintEvent(QPaintEvent *event){
+
+    QPainter painter(this);
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(4);
+    painter.setPen(pen);
+
+    //painter.drawLine(110, 520, 110, 540);
+    //painter.translate(0, height());
+    painter.rotate(angleCanon);
+    painter.drawRect(QRect(110, 550, 20, 0));
+
+
 }
