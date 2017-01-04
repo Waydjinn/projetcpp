@@ -14,7 +14,7 @@ private:
 
 public:
     Obstacle();
-    Obstacle(int typeObstacle, QWidget *Fen);
+    Obstacle(QWidget *Fen);
     static Point _TabPoint[50];
     static int _nbrObstacle;
     int getVie() const;
