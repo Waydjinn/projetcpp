@@ -13,7 +13,7 @@ Terrain::Terrain(QWidget *Fen)
     srand(time(NULL));
 
     /*
-    Obstacle Obs[50];
+    Obstacle *Obs;
     for(int i=0; i < 50; i++){
         Obs[i] = new Obstacle(Fen);
     }

@@ -19,15 +19,24 @@ public:
     bool eventFilter(QObject *watched, QEvent *event);
     int getAuTourDe() const;
     void setAuTourDe(int n);
+    int getAngleCanon() const;
+    void setAngleCanon(int n);
 
     void paintEvent(QPaintEvent *event);
 
 private:
 
-    int angleCanon;
+    int angleCanon;    
 
     int auTourDe;
+    QLCDNumber *lcd;
+    QLCDNumber *lcdH;
     QLCDNumber *lcd2;
+    QLCDNumber *lcd3;
+    QLCDNumber *lcd4;
+    QLCDNumber *lcdType;
+    QSlider * slider1;
+    QSlider * slider2;
     QLabel *titre;
     Terrain *terrain;
     Tank *tank1;

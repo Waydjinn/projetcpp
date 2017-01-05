@@ -12,7 +12,8 @@ class Tank : public Obstacle
 {
 private:
     int capacite; //nbr de déplacement du tank
-    int obus1, obus2, obus3, posx, posy;
+    int typeObusCharg, obus1, obus2, obus3, posx, posy;
+    int nbrMouvTour; //nbr mouvement par tour
 
 public:
     Tank(QWidget *Fen);
@@ -33,6 +34,10 @@ public:
     int getObus2() const;
     int getObus3() const;
     int getCapacite() const;
+    int getNbrMouvTour() const;
+    int getTypeObusCharg() const;
+    void setTypeObusCharg(int n);
+    void setNbrMouvTour(int n);
     void setPosX(int n);
     void setPosY(int n);
     void setObus2(int n);

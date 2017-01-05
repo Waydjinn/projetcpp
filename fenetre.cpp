@@ -2,15 +2,16 @@
 
 Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 {
-    installEventFilter(this);
-    auTourDe = 1;
+    installEventFilter(this); //Permet de récupérer les action (event) dans ce Widget
+
     //Fenêtre
     setFixedSize(1000, 600);    //Taille de la fenêtre
+    auTourDe = 1;               //Le joueur 1 commence
 
     //Titre
     titre = new QLabel("Jeu de Tank - Projet CPP", this); //this->pointeur vers le widget parent
     titre->setGeometry(QRect(250, 30, 550, 150));
-    QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred); //Initialisation de la police du Label
     sizePolicy1.setHorizontalStretch(10);
     sizePolicy1.setVerticalStretch(10);
     sizePolicy1.setHeightForWidth(titre->sizePolicy().hasHeightForWidth());
@@ -43,15 +44,23 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     bouton3->setGeometry(320, 380, 400, 90);
     bouton3->setToolTip("Arrêt de l'application");
 
+
     //Carte de jeu
     terrain = new Terrain(this);
 
-    //QLCDNumber
-    QLCDNumber *lcd = new QLCDNumber(2, this);
-    lcd->setSegmentStyle(QLCDNumber::Filled);
+    //Angle vertical canon
+    lcd = new QLCDNumber(2, this);
+    lcd->setPalette(Qt::black);
     lcd->setGeometry(0,500,50, 50);
     lcd->hide();
+    //Angle horizontal canon
+    lcdH = new QLCDNumber(3, this);
+    lcdH->setPalette(Qt::black);
+    lcdH->setGeometry(70,500,50, 50);
+    lcdH->hide();
+
     //Labels
+
     //Angle Y du canon
     QLabel *angleLabel = new QLabel("Angle tir", this);
     angleLabel->setGeometry(QRect(0, 520, 80, 80));
@@ -67,28 +76,68 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     angleLabel->setFont(font2);
     angleLabel->hide();
 
+    //Infos
+    QLabel *info1 = new QLabel("1 : Obus légés\n2 : Obus moyens\n3 : Obus lourds",this);
+    info1->setGeometry(420, 502, 120, 120);
+    info1->hide();
+
+
+    //Changer d'obus
+    QLabel *typeObus = new QLabel("Type obus :", this);
+    typeObus->setGeometry(420, 502, 90, 30);
+    lcdType = new QLCDNumber(1, this);
+    lcdType->setPalette(Qt::black);
+    lcdType->setGeometry(490,505,25, 25);
+    lcdType->display(1);
+    lcdType->hide();
+    typeObus->hide();
+
     //Tour de
     QLabel *tour = new QLabel("Au tour de joueur :", this);
     tour->setGeometry(170, 460, 120, 120);
     lcd2 = new QLCDNumber(1, this);
-    lcd2->setSegmentStyle(QLCDNumber::Filled);
+    lcd2->setPalette(Qt::black);
     lcd2->setGeometry(280,505,25,25);
     lcd2->display(this->getAuTourDe());
     tour->hide();
     lcd2->hide();
 
+    //Nbr de déplacement
+    QLabel *nbrMouv = new QLabel("Nombre de déplacements restants :", this);
+    nbrMouv->setGeometry(170, 450, 210, 210);
+    lcd3 = new QLCDNumber(2, this);
+    lcd3->setPalette(Qt::black);
+    lcd3->setGeometry(375,540,25,25);
+    lcd3->display(50);
+    nbrMouv->hide();
+    lcd3->hide();
+
+
+    //Nbr de déplacement pour le tour
+    QLabel *nbrMouvTour = new QLabel("pour ce tour  :", this);
+    nbrMouvTour->setGeometry(170, 490, 180, 180);
+    lcd4 = new QLCDNumber(1, this);
+    lcd4->setPalette(Qt::black);
+    lcd4->setGeometry(255,565,25,25);
+    lcd4->display(3);
+    nbrMouvTour->hide();
+    lcd4->hide();
+
+
 
     //QSlider
-    QSlider * slider1 = new QSlider(Qt::Horizontal,this);
+    slider1 = new QSlider(Qt::Horizontal,this);
     slider1->setRange(0, 360);
     slider1->setValue(0);
     slider1 -> setGeometry(0,585,100,15);
+    slider1->setFocusPolicy(Qt::NoFocus);
     slider1 -> hide();
 
-    QSlider * slider2 = new QSlider(Qt::Vertical,this);
+    slider2 = new QSlider(Qt::Vertical,this);
     slider2 -> setRange(0, 90);
     slider2 -> setValue(0);
     slider2 -> setGeometry(150,510,15,90);
+    slider2->setFocusPolicy(Qt::NoFocus);
     slider2 -> hide();
 
     //Canon
@@ -105,6 +154,8 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     tank2->setCapacite((terrain->getL()/10));
 
     //Actions
+    //Slider 1
+    QObject::connect(slider1, SIGNAL(valueChanged(int)), lcdH, SLOT(display(int)));
 
     //Slider 2
     QObject::connect(slider2, SIGNAL(valueChanged(int)), lcd, SLOT(display(int)));
@@ -123,7 +174,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
         QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs[i], SLOT(show()));
     }
     */
-
+    ////////////////////////////////////////////////////////////////////////////
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs2, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs3, SLOT(show()));
@@ -174,17 +225,25 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs48, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs49, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
-
+    ///////////////////////////////////////////////////////////////////////////
     QObject::connect(bouton1, SIGNAL(clicked()), slider1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), slider2, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), angleLabel, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), lcd, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcdH, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), tour, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), lcd2, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcd3, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcd4, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), nbrMouv, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), nbrMouvTour, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), typeObus, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcdType, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), info1, SLOT(show()));
 
 
 
-
+    /*
     //Bouton 2 - Deux joueurs
     QObject::connect(bouton2, SIGNAL(clicked()), bouton1, SLOT(hide()));
     QObject::connect(bouton2, SIGNAL(clicked()), bouton2, SLOT(hide()));
@@ -245,6 +304,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton2, SIGNAL(clicked()), terrain->Obs50, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), slider1, SLOT(show()));
     QObject::connect(bouton2, SIGNAL(clicked()), slider2, SLOT(show()));
+    */
 
     //Bouton 3 - quitter
     QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -259,40 +319,93 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
     if(event->type() == QEvent::KeyRelease){
         QKeyEvent *c = dynamic_cast<QKeyEvent *>(event);
+
         if(c && c->key() == Qt::Key_Up){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(1, 1,this->tank1, this->tank2);
+                lcd3->display(this->tank1->getCapacite());
+                lcd4->display(this->tank1->getNbrMouvTour());
             }else if(this->getAuTourDe() == 2){
                 this->tank2->avancer(1, 2,this->tank2, this->tank1);
+                lcd3->display(this->tank2->getCapacite());
+                lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Down){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(2, 1,this->tank1, this->tank2);
+                lcd3->display(this->tank1->getCapacite());
+                lcd4->display(this->tank1->getNbrMouvTour());
             }else if(this->getAuTourDe() == 2){
                 this->tank2->avancer(2, 2,this->tank2, this->tank1);
+                lcd3->display(this->tank2->getCapacite());
+                lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Right){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(3, 1,this->tank1, this->tank2);
+                lcd3->display(this->tank1->getCapacite());
+                lcd4->display(this->tank1->getNbrMouvTour());
             }else if(this->getAuTourDe() == 2){
                 this->tank2->avancer(3, 2,this->tank2, this->tank1);
+                lcd3->display(this->tank2->getCapacite());
+                lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Left){
             if(this->getAuTourDe() == 1){
                 this->tank1->avancer(4, 1,this->tank1, this->tank2);
+                lcd3->display(this->tank1->getCapacite());
+                lcd4->display(this->tank1->getNbrMouvTour());
             }else if(this->getAuTourDe() == 2){
                 this->tank2->avancer(4, 2,this->tank2, this->tank1);
+                lcd3->display(this->tank2->getCapacite());
+                lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Space){
             if(this->getAuTourDe() == 1){
                 this->setAuTourDe(2);
                 this->lcd2->display(this->getAuTourDe());
+                lcd3->display(this->tank2->getCapacite());
+                lcd4->display(this->tank2->getNbrMouvTour());
+                this->tank1->setNbrMouvTour(3);
+                this->lcdType->display(this->tank2->getTypeObusCharg());
             }else if(this->getAuTourDe() == 2){
                 this->setAuTourDe(1);
                 this->lcd2->display(this->getAuTourDe());
+                lcd3->display(this->tank1->getCapacite());
+                lcd4->display(this->tank1->getNbrMouvTour());
+                this->tank2->setNbrMouvTour(3);
+                this->lcdType->display(this->tank1->getTypeObusCharg());
             }
         }else if(c && c->key() == Qt::Key_Escape){
             this->close();
+        }else if(c && c->key() == Qt::Key_C){
+            if(this->getAuTourDe() == 1){
+
+                if(this->tank1->getTypeObusCharg() == 1){
+                    this->tank1->setTypeObusCharg(2);
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                }else if(this->tank1->getTypeObusCharg() == 2){
+                    this->tank1->setTypeObusCharg(3);
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                }else if(this->tank1->getTypeObusCharg() == 3){
+                    this->tank1->setTypeObusCharg(1);
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                }
+
+            }else if(this->getAuTourDe() == 2){
+
+                if(this->tank2->getTypeObusCharg() == 1){
+                    this->tank2->setTypeObusCharg(2);
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                }else if(this->tank2->getTypeObusCharg() == 2){
+                    this->tank2->setTypeObusCharg(3);
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                }else if(this->tank2->getTypeObusCharg() == 3){
+                    this->tank2->setTypeObusCharg(1);
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                }
+            }
+
         }
     }
     return false;
@@ -308,6 +421,14 @@ void Fenetre::setAuTourDe(int n){
     this->auTourDe = n;
 }
 
+int Fenetre::getAngleCanon() const{
+    return this->angleCanon;
+}
+
+void Fenetre::setAngleCanon(int n){
+    this->angleCanon = n;
+}
+
 void Fenetre::paintEvent(QPaintEvent *event){
 
     QPainter painter(this);
@@ -320,7 +441,7 @@ void Fenetre::paintEvent(QPaintEvent *event){
     //painter.drawLine(110, 520, 110, 540);
     //painter.translate(0, height());
     painter.rotate(angleCanon);
-    painter.drawRect(QRect(110, 550, 20, 0));
+    painter.drawRect(QRect(900, 550, 20, 0));
 
 
 }

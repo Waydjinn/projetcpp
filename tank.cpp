@@ -8,7 +8,7 @@ Tank::Tank(QWidget *Fen)
         this->posx = aleaTankX()*50;
         this->posy = aleaTankY()*50;
         for(int i = 0; i<=20; i++){
-            while(_TabPoint[i].getY() == this->getPosx() && _TabPoint[i].getX() == this->getPosY()){
+            while(_TabPoint[i].getX() == this->getPosx() && _TabPoint[i].getY() == this->getPosY()){
                 this->posx = aleaTankX()*50;
                 this->posy = aleaTankY()*50;
             }
@@ -38,6 +38,8 @@ Tank::Tank(QWidget *Fen)
     this->capacite = 0;
     this->obus2 = 10;
     this->obus3 = 5;
+    this->nbrMouvTour = 3;
+    this->typeObusCharg = 1; //on initialise le type d'obus chargé au type 1 (obus1)
     _nbrTank++;
 }
 
@@ -62,7 +64,25 @@ int Tank::getPosY() const{
     return this->posy;
 }
 
+int Tank::getNbrMouvTour() const{
+    return this->nbrMouvTour;
+}
+
+int Tank::getTypeObusCharg() const{
+    return this->typeObusCharg;
+}
+
+
 //Setters
+
+void Tank::setTypeObusCharg(int n){
+    this->typeObusCharg = n;
+}
+
+void Tank::setNbrMouvTour(int n){
+    this->nbrMouvTour = n;
+}
+
 void Tank::setCapacite(int n){
     this->capacite = n;
 }
@@ -103,6 +123,7 @@ int Tank::aleaTankY(){
 
 void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //Ajouter les conditons pour ne pas traverser le tank adverse ou les obstacles
     if(this->getCapacite() > 0){
+        if(this->getNbrMouvTour() > 0){
         //Vers le haut
         if(verif(tankJoueur, mouv) == 0){
         if(mouv == 1 && getPosY()>0){
@@ -116,6 +137,7 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                     this->tankJ2->setPixmap(QPixmap(":/img/img/TankHautJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
+                this->setNbrMouvTour(this->getNbrMouvTour()-1);
             }
         }//Vers le bas
         else if(mouv == 2 && getPosY()<450){
@@ -129,6 +151,7 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                     this->tankJ2->setPixmap(QPixmap(":/img/img/TankBasJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
+                this->setNbrMouvTour(this->getNbrMouvTour()-1);
             }
         }//Vers la droite
         else if(mouv == 3 && getPosx()<950){
@@ -142,6 +165,7 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                     this->tankJ2->setPixmap(QPixmap(":/img/img/TankDroitJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
+                this->setNbrMouvTour(this->getNbrMouvTour()-1);
             }
         }//Vers la gauche
         else if(mouv == 4 && getPosx()>0){
@@ -155,9 +179,11 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
                 this->tankJ2->setPixmap(QPixmap(":/img/img/TankGaucheJ2.png"));
                 }
                 this->setCapacite(this->getCapacite()-1);
+                this->setNbrMouvTour(this->getNbrMouvTour()-1);
             }
         }
         }
+    }
     }
 }
 
