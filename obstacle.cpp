@@ -52,6 +52,15 @@ Obstacle::Obstacle(QWidget *Fen) : QLabel(Fen)
     hide();
 }
 
+/*
+Obstacle::Obstacle(QWidget *Fen, int x, int y) : QLabel(Fen)
+{
+    QLabel *impact = new QLabel(this);
+    impact->setGeometry(x, y, 50, 50);
+    impact->setPixmap(QPixmap(":/img/img/impact.png"));
+    impact->show();
+}
+*/
 
 int Obstacle::chercherObs(Point *Tab, int x, int y){
     for(int i = 0; i <= _nbrObstacle; i++){

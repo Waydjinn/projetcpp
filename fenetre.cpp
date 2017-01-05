@@ -376,6 +376,15 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 this->tank2->setNbrMouvTour(3);
                 this->lcdType->display(this->tank1->getTypeObusCharg());
             }
+
+
+            //QLabel *impact = new QLabel(this);
+            //impact->setGeometry(this->tank1->getPosx()+50, this->tank1->getPosY(), 50, 50);
+            //impact->setPixmap(QPixmap(":/img/img/impact.png"));
+            //impact->show();
+
+
+
         }else if(c && c->key() == Qt::Key_Escape){
             this->close();
         }else if(c && c->key() == Qt::Key_C){
