@@ -19,15 +19,15 @@ public:
     Tank(QWidget *Fen);
     QLabel *tankJ1;
     QLabel *tankJ2;
+    QList<Obstacle *> listImpacts;
     static int _nbrTank;
     int aleaTankX();
     int aleaTankY();
 
     int verif(Tank *tankJoueur, int mouv); //Vérifie que le tank ne traverse pas d'obstacle
-    void viser(); //Tourner le canon et ajuster angle
     void tirer(QWidget *Fen, int angle, int force , Tank *tankJoueur); //Tirer un obus après avoir visé
     void avancer(int mouv, int joueur, Tank *tankJoueur, Tank *tankAdverse); //Bouger
-    void estTouche(); //Tank touché ou non
+    int aTouche(Tank *tankAdverse); //Tank touché renvoie 1 ou non renvoie 0
 
     int getPosx() const;
     int getPosY() const;

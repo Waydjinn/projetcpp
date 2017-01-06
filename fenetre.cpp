@@ -185,8 +185,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
 
 }
-
-
+#include <QDebug>
 //Actions clavier
 bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
     if(event->type() == QEvent::KeyRelease){
@@ -233,6 +232,7 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Space){
+            int test;
             if(this->getAuTourDe() == 1){
                 this->tank1->tirer(this, this->lcdH->value(), this->lcd->value(), this->tank1);
                 this->setAuTourDe(2);
@@ -241,6 +241,12 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 lcd4->display(this->tank2->getNbrMouvTour());
                 this->tank1->setNbrMouvTour(3);
                 this->lcdType->display(this->tank2->getTypeObusCharg());
+
+
+                test = this->tank1->aTouche(this->tank2);
+                qDebug() << test;
+
+
             }else if(this->getAuTourDe() == 2){
                 this->tank2->tirer(this, this->lcdH->value(), this->lcd->value(), this->tank2);
                 this->setAuTourDe(1);
@@ -250,6 +256,8 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 this->tank2->setNbrMouvTour(3);
                 this->lcdType->display(this->tank1->getTypeObusCharg());
             }
+            tank1->tankJ1->raise(); //Permet de remettre l'image du tank au premier plan
+            tank2->tankJ2->raise(); //Sinon le tank passe sous l'image des impacts d'obus
         }else if(c && c->key() == Qt::Key_Escape){
             this->close();
         }else if(c && c->key() == Qt::Key_C){

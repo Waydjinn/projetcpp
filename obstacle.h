@@ -15,9 +15,13 @@ private:
 public:
     Obstacle();
     Obstacle(QWidget *Fen);
-    Obstacle(QWidget *Fen, int x, int y);
+    Obstacle(QWidget *Fen, int x, int y, int typeO);
+
     static Point _TabPoint[50];
+    static Point _TabImpacts[50];
+    static int _nbrImpacts;
     static int _nbrObstacle;
+
     int getVie() const;
     int getPosObsX() const;
     int getPosObsY() const;

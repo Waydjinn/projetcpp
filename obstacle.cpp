@@ -2,6 +2,8 @@
 
 int Obstacle:: _nbrObstacle = -1;
 Point Obstacle:: _TabPoint[50];
+int Obstacle:: _nbrImpacts = 0;
+Point Obstacle:: _TabImpacts[50];
 
 Obstacle::Obstacle(){
 
@@ -53,11 +55,35 @@ Obstacle::Obstacle(QWidget *Fen) : QLabel(Fen)
 }
 
 
-Obstacle::Obstacle(QWidget *Fen, int x, int y) : QLabel(Fen)
+Obstacle::Obstacle(QWidget *Fen, int x, int y, int typeO) : QLabel(Fen)
 {
-    setGeometry(x, y, 50, 50);
+    int largeur;
+    int hauteur;
+    if(typeO == 1){
+        this->setType(4);
+        //hauteur = 50;
+        //largeur = 50;
+    }else if(typeO == 2){
+        this->setType(5);
+        //hauteur = 100;
+        //largeur = 100;
+    }else if(typeO == 3){
+        this->setType(6);
+        //hauteur = 150;
+        //largeur = 150;
+    }
+    hauteur = 50;
+    largeur = 50;
+    setGeometry(x, y, hauteur, largeur);
     setPixmap(QPixmap(":/img/img/impact.png"));
+    setScaledContents(true);
     show();
+    _TabImpacts[_nbrImpacts].setX(x);
+    _TabImpacts[_nbrImpacts].setY(y);
+    _nbrImpacts++;
+    if(_nbrImpacts == 50){
+        _nbrImpacts = 0;
+    }
 }
 
 
