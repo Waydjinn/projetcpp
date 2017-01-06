@@ -187,6 +187,67 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
     }
 }
 
+void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
+    if(force == 0){
+        force = 10;
+    }
+    if(angle >= 0 && angle <= 30){ //gauche
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 31 && angle <= 60){ //diagonal haut gauche
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()-((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 61 && angle <= 120){ //haut
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx(), tankJoueur->getPosY()-((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 121 && angle <= 150){ //diagonale haut droit
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()-((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 151 && angle <= 210){ //droite
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY(), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 211 && angle <= 240){ //diagonale bas droite
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 241 && angle <= 300){ //bas
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx(), tankJoueur->getPosY()+((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 301 && angle <= 330){ //diagonale bas gauche
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()+((force/10)*50), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }else if(angle >= 331 && angle <= 360){ //gauche
+        QLabel *impact = new QLabel(Fen);
+        impact->setGeometry(tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), 50, 50);
+        impact->setPixmap(QPixmap(":/img/img/impact.png"));
+        impact->setScaledContents(true);
+        impact->show();
+    }
+}
+
 int Tank::verif(Tank *tankJoueur, int mouv){
     for(int i = 0; i < _nbrObstacle; i++){
         if(mouv == 1){

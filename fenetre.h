@@ -19,14 +19,8 @@ public:
     bool eventFilter(QObject *watched, QEvent *event);
     int getAuTourDe() const;
     void setAuTourDe(int n);
-    int getAngleCanon() const;
-    void setAngleCanon(int n);
 
-    void paintEvent(QPaintEvent *event);
-
-private:
-
-    int angleCanon;    
+private:   
 
     int auTourDe;
     QLCDNumber *lcd;
