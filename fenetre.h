@@ -30,6 +30,7 @@ private:
     QLCDNumber *lcd3;
     QLCDNumber *lcd4;
     QLCDNumber *lcdType;
+    QLCDNumber *lcdNbrObus;
     QSlider * slider1;
     QSlider * slider2;
     QLabel *titre;

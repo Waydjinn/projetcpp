@@ -104,6 +104,16 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     lcdType->hide();
     typeObus->hide();
 
+    //Munitions
+    QLabel *nbrObus = new QLabel("Munitions :", this);
+    nbrObus->setGeometry(520, 502, 90, 30);
+    lcdNbrObus = new QLCDNumber(2, this);
+    lcdNbrObus->setPalette(Qt::black);
+    lcdNbrObus->setGeometry(590,505,25, 25);
+    lcdNbrObus->display(99);
+    lcdNbrObus->hide();
+    nbrObus->hide();
+
     //Tour de
     QLabel *tour = new QLabel("Au tour de joueur :", this);
     tour->setGeometry(170, 460, 120, 120);
@@ -193,6 +203,9 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), lcdType, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), info1, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), viseur, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), nbrObus, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), lcdNbrObus, SLOT(show()));
+
 
     //Bouton 3 - quitter
     QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -259,6 +272,16 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 this->tank1->setNbrMouvTour(3); //On remet le nbr de mouvement par tour à 3 pour le prochain tour de ce joueur
                 this->lcdType->display(this->tank2->getTypeObusCharg()); //On affiche le type d'obus chargé
                 touche = this->tank1->aTouche(this->tank2); //On vérifie si le tank adverse est touché
+                if(this->tank2->getTypeObusCharg() == 1){
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(99);
+                }else if(this->tank2->getTypeObusCharg() == 2){
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank2->getObus2());
+                }else if(this->tank2->getTypeObusCharg() == 3){
+                    this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank2->getObus3());
+                }
             }else if(this->getAuTourDe() == 2){
                 this->tank2->tirer(this, this->lcdH->value(), this->lcd->value(), this->tank2);
                 this->setAuTourDe(1);
@@ -268,6 +291,17 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 this->tank2->setNbrMouvTour(3);
                 this->lcdType->display(this->tank1->getTypeObusCharg());
                 touche = this->tank2->aTouche(this->tank1);
+                if(this->tank1->getTypeObusCharg() == 1){
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(99);
+                }else if(this->tank1->getTypeObusCharg() == 2){
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank1->getObus2());
+                }else if(this->tank1->getTypeObusCharg() == 3){
+                    this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank1->getObus3());
+                }
+
             }
             tank1->tankJ1->raise(); //Permet de remettre l'image du tank au premier plan
             tank2->tankJ2->raise(); //Sinon le tank passe sous l'image des impacts d'obus
@@ -279,12 +313,15 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 if(this->tank1->getTypeObusCharg() == 1){
                     this->tank1->setTypeObusCharg(2);
                     this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank1->getObus2());
                 }else if(this->tank1->getTypeObusCharg() == 2){
                     this->tank1->setTypeObusCharg(3);
                     this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank1->getObus3());
                 }else if(this->tank1->getTypeObusCharg() == 3){
                     this->tank1->setTypeObusCharg(1);
                     this->lcdType->display(this->tank1->getTypeObusCharg());
+                    this->lcdNbrObus->display(99);
                 }
 
             }else if(this->getAuTourDe() == 2){
@@ -292,12 +329,15 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 if(this->tank2->getTypeObusCharg() == 1){
                     this->tank2->setTypeObusCharg(2);
                     this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank2->getObus2());
                 }else if(this->tank2->getTypeObusCharg() == 2){
                     this->tank2->setTypeObusCharg(3);
                     this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(this->tank2->getObus3());
                 }else if(this->tank2->getTypeObusCharg() == 3){
                     this->tank2->setTypeObusCharg(1);
                     this->lcdType->display(this->tank2->getTypeObusCharg());
+                    this->lcdNbrObus->display(99);
                 }
             }
         }

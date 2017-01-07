@@ -131,14 +131,15 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
             if((tankJoueur->getPosY()-50 != tankAdverse->getPosY()) || (tankJoueur->getPosx() != tankAdverse->getPosx())){
                 for(int i = 0; i < _nbrImpacts; i++){
                     if(_TabImpacts[i].getX() == tankJoueur->getPosx() && _TabImpacts[i].getY() == tankJoueur->getPosY() ){
-                        this->setCapacite(this->getCapacite()-2);
-                        this->setNbrMouvTour(this->getNbrMouvTour()-2);
                         bouge = 1;
                     }
                 }
                 if(bouge == 0){
                     this->setCapacite(this->getCapacite()-1);
                     this->setNbrMouvTour(this->getNbrMouvTour()-1);
+                }else if(bouge == 1){
+                    this->setCapacite(this->getCapacite()-2);
+                    this->setNbrMouvTour(this->getNbrMouvTour()-2);
                 }
                 this->setPosY(this->getPosY()-50);
                 if(joueur == 1){
@@ -155,14 +156,15 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
             if((tankJoueur->getPosY()+50 != tankAdverse->getPosY()) || (tankJoueur->getPosx() != tankAdverse->getPosx())){
                 for(int i = 0; i < _nbrImpacts; i++){
                     if(_TabImpacts[i].getX() == tankJoueur->getPosx() && _TabImpacts[i].getY() == tankJoueur->getPosY() ){
-                        this->setCapacite(this->getCapacite()-2);
-                        this->setNbrMouvTour(this->getNbrMouvTour()-2);
                         bouge = 1;
                     }
                 }
                 if(bouge == 0){
                     this->setCapacite(this->getCapacite()-1);
                     this->setNbrMouvTour(this->getNbrMouvTour()-1);
+                }else if(bouge == 1){
+                    this->setCapacite(this->getCapacite()-2);
+                    this->setNbrMouvTour(this->getNbrMouvTour()-2);
                 }
                 this->setPosY(this->getPosY()+50);
                 if(joueur == 1){
@@ -178,14 +180,15 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
             if((tankJoueur->getPosY() != tankAdverse->getPosY()) || (tankJoueur->getPosx()+50 != tankAdverse->getPosx())){
                 for(int i = 0; i < _nbrImpacts; i++){
                     if(_TabImpacts[i].getX() == tankJoueur->getPosx() && _TabImpacts[i].getY() == tankJoueur->getPosY() ){
-                        this->setCapacite(this->getCapacite()-2);
-                        this->setNbrMouvTour(this->getNbrMouvTour()-2);
                         bouge = 1;
                     }
                 }
                 if(bouge == 0){
                     this->setCapacite(this->getCapacite()-1);
                     this->setNbrMouvTour(this->getNbrMouvTour()-1);
+                }else if(bouge == 1){
+                    this->setCapacite(this->getCapacite()-2);
+                    this->setNbrMouvTour(this->getNbrMouvTour()-2);
                 }
                 this->setPosX(this->getPosx()+50);
                 if(joueur == 1){
@@ -201,14 +204,15 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
             if((tankJoueur->getPosY() != tankAdverse->getPosY()) || (tankJoueur->getPosx()-50 != tankAdverse->getPosx())){
                 for(int i = 0; i < _nbrImpacts; i++){
                     if(_TabImpacts[i].getX() == tankJoueur->getPosx() && _TabImpacts[i].getY() == tankJoueur->getPosY() ){
-                        this->setCapacite(this->getCapacite()-2);
-                        this->setNbrMouvTour(this->getNbrMouvTour()-2);
                         bouge = 1;
                     }
                 }
                 if(bouge == 0){
                     this->setCapacite(this->getCapacite()-1);
                     this->setNbrMouvTour(this->getNbrMouvTour()-1);
+                }else if(bouge == 1){
+                    this->setCapacite(this->getCapacite()-2);
+                    this->setNbrMouvTour(this->getNbrMouvTour()-2);
                 }
                 this->setPosX(this->getPosx()-50);
                 if(joueur == 1){
@@ -230,7 +234,26 @@ void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
         force = 10;
     }
     int effet;
+    int onTire;
+    if(tankJoueur->getTypeObusCharg() == 2){
+        if(tankJoueur->getObus2() > 0){
+            tankJoueur->setObus2(tankJoueur->getObus2()-1);
+            onTire = 1;
+        }else{
+            onTire = 0;
+        }
+    }else if(tankJoueur->getTypeObusCharg() == 3){
+        if(tankJoueur->getObus3() > 0){
+            tankJoueur->setObus3(tankJoueur->getObus3()-1);
+            onTire = 1;
+        }else{
+            onTire = 0;
+        }
+    }else{
+        onTire = 1;
+    }
 
+    if(onTire == 1){
     if(angle >= 0 && angle <= 30){ //gauche
         effet = tireEffet(tankJoueur, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY());
         if( effet == 1){
@@ -282,6 +305,7 @@ void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
         if( effet == 1){
             listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
         }
+    }
     }
 }
 
