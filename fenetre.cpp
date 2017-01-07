@@ -7,7 +7,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Fenêtre
     setFixedSize(1000, 600);    //Taille de la fenêtre
     auTourDe = 1;               //Le joueur 1 commence
-
+    touche = 0;
     //Titre
     titre = new QLabel("Jeu de Tank - Projet CPP", this); //this->pointeur vers le widget parent
     titre->setGeometry(QRect(250, 30, 550, 150));
@@ -78,6 +78,21 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QLabel *info1 = new QLabel("1 : Obus légés\n2 : Obus moyens\n3 : Obus lourds",this);
     info1->setGeometry(420, 502, 120, 120);
     info1->hide();
+
+    info2 = new QLabel("Joueur 1 - Gagne la partie",this);
+    info2->setGeometry(670, 450, 200, 200);
+    info2->hide();
+
+    info3 = new QLabel("Joueur 2 - Gagne la partie",this);
+    info3->setGeometry(670, 450, 200, 200);
+    info3->hide();
+
+    //Viseur
+    viseur = new QLabel(this);
+    viseur->setGeometry(850, 500, 100, 100);
+    viseur->setPixmap(QPixmap(":/img/img/viseur.png"));
+    viseur->setScaledContents(true);
+    viseur->hide();
 
     //Changer d'obus
     QLabel *typeObus = new QLabel("Type obus :", this);
@@ -177,6 +192,7 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     QObject::connect(bouton1, SIGNAL(clicked()), typeObus, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), lcdType, SLOT(show()));
     QObject::connect(bouton1, SIGNAL(clicked()), info1, SLOT(show()));
+    QObject::connect(bouton1, SIGNAL(clicked()), viseur, SLOT(show()));
 
     //Bouton 3 - quitter
     QObject::connect(bouton3, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -185,9 +201,10 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
 
 
 }
-#include <QDebug>
+
 //Actions clavier
 bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
+    if(touche == 0){
     if(event->type() == QEvent::KeyRelease){
         QKeyEvent *c = dynamic_cast<QKeyEvent *>(event);
 
@@ -232,21 +249,16 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 lcd4->display(this->tank2->getNbrMouvTour());
             }
         }else if(c && c->key() == Qt::Key_Space){
-            int test;
+
             if(this->getAuTourDe() == 1){
                 this->tank1->tirer(this, this->lcdH->value(), this->lcd->value(), this->tank1);
-                this->setAuTourDe(2);
-                this->lcd2->display(this->getAuTourDe());
-                lcd3->display(this->tank2->getCapacite());
-                lcd4->display(this->tank2->getNbrMouvTour());
-                this->tank1->setNbrMouvTour(3);
-                this->lcdType->display(this->tank2->getTypeObusCharg());
-
-
-                test = this->tank1->aTouche(this->tank2);
-                qDebug() << test;
-
-
+                this->setAuTourDe(2);   //On passe au tour de l'autre joueur
+                this->lcd2->display(this->getAuTourDe());   //On affiche qui jou à ce tour
+                lcd3->display(this->tank2->getCapacite());  //On affiche le nbr total de déplacement du joueur actuel
+                lcd4->display(this->tank2->getNbrMouvTour());   //On affiche le nbr de mouvement restant pour ce tour (3 max)
+                this->tank1->setNbrMouvTour(3); //On remet le nbr de mouvement par tour à 3 pour le prochain tour de ce joueur
+                this->lcdType->display(this->tank2->getTypeObusCharg()); //On affiche le type d'obus chargé
+                touche = this->tank1->aTouche(this->tank2); //On vérifie si le tank adverse est touché
             }else if(this->getAuTourDe() == 2){
                 this->tank2->tirer(this, this->lcdH->value(), this->lcd->value(), this->tank2);
                 this->setAuTourDe(1);
@@ -255,6 +267,7 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 lcd4->display(this->tank1->getNbrMouvTour());
                 this->tank2->setNbrMouvTour(3);
                 this->lcdType->display(this->tank1->getTypeObusCharg());
+                touche = this->tank2->aTouche(this->tank1);
             }
             tank1->tankJ1->raise(); //Permet de remettre l'image du tank au premier plan
             tank2->tankJ2->raise(); //Sinon le tank passe sous l'image des impacts d'obus
@@ -288,6 +301,16 @@ bool Fenetre:: eventFilter(QObject *obj, QEvent *event){
                 }
             }
         }
+    }
+    }else if (touche == 1){
+        if(this->getAuTourDe() == 1){
+            this->tank1->tankJ1->setPixmap(QPixmap(":/img/img/tankDetruit.png"));
+            this->info3->show();
+        }else if(this->getAuTourDe() == 2){
+            this->tank2->tankJ2->setPixmap(QPixmap(":/img/img/tankDetruit.png"));
+            this->info2->show();
+        }
+
     }
     return false;
 }

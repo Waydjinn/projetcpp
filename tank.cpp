@@ -220,17 +220,25 @@ void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
     }
 }
 
-#include <QDebug>
 int Tank::aTouche(Tank *tankAdverse){
     int res = 0;
-    int i = _nbrImpacts;
-    qDebug() << i;
-    if(listImpacts[0]->getPosObsX() == tankAdverse->getPosx() && listImpacts[0]->getPosObsY() == tankAdverse->getPosY()){
+    int j = _nbrImpacts-1;
+    if(_TabImpacts[j].getX() == tankAdverse->getPosx() && _TabImpacts[j].getY() == tankAdverse->getPosY()){
         res = 1;
     }
     return res;
 }
 
+
+int Tank::tireDegats(Tank *tankJoueur, int posTirX, int posTirY){
+    for(int i = 0; i < _nbrImpacts; i++){
+        if(_TabPoint[i].getX() == posTirX && _TabPoint[i].getY() == posTirY){
+            if(listImpacts[i]->getType() == 2){
+
+            }
+        }
+    }
+}
 
 int Tank::verif(Tank *tankJoueur, int mouv){
     for(int i = 0; i < _nbrObstacle; i++){

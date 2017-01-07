@@ -28,6 +28,7 @@ public:
     void tirer(QWidget *Fen, int angle, int force , Tank *tankJoueur); //Tirer un obus après avoir visé
     void avancer(int mouv, int joueur, Tank *tankJoueur, Tank *tankAdverse); //Bouger
     int aTouche(Tank *tankAdverse); //Tank touché renvoie 1 ou non renvoie 0
+    int tireDegats(Tank *tankJoueur, int posTirX, int posTirY);
 
     int getPosx() const;
     int getPosY() const;

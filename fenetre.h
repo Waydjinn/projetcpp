@@ -19,6 +19,7 @@ public:
     bool eventFilter(QObject *watched, QEvent *event);
     int getAuTourDe() const;
     void setAuTourDe(int n);
+    int touche;
 
 private:   
 
@@ -32,6 +33,9 @@ private:
     QSlider * slider1;
     QSlider * slider2;
     QLabel *titre;
+    QLabel *viseur;
+    QLabel *info2;
+    QLabel *info3;
     Terrain *terrain;
     Tank *tank1;
     Tank *tank2;

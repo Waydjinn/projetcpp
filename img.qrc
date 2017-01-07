@@ -14,5 +14,6 @@
         <file>img/TankHaut.png</file>
         <file>img/TankHautJ2.png</file>
         <file>img/tankDetruit.png</file>
+        <file>img/viseur.png</file>
     </qresource>
 </RCC>
