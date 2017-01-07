@@ -50,12 +50,12 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     //Angle vertical canon
     lcd = new QLCDNumber(2, this);
     lcd->setPalette(Qt::black);
-    lcd->setGeometry(0,500,50, 50);
+    lcd->setGeometry(70,500,50, 50);
     lcd->hide();
     //Angle horizontal canon
     lcdH = new QLCDNumber(3, this);
     lcdH->setPalette(Qt::black);
-    lcdH->setGeometry(70,500,50, 50);
+    lcdH->setGeometry(0,500,50, 50);
     lcdH->hide();
 
     //Labels

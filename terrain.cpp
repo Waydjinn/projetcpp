@@ -10,7 +10,6 @@ Terrain::Terrain(QWidget *Fen)
     carte->setPixmap(QPixmap(":/img/img/map.png"));
     carte->setScaledContents(true);
     carte->hide();
-    srand(time(NULL));
 
 
     for(int i=0; i < 50; i++){

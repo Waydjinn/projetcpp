@@ -3,8 +3,6 @@
 
 #include <QLabel>
 
-
-#include "point.h"
 #include "obstacle.h"
 
 class Terrain

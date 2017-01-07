@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cstdio>
+
 #include "point.h"
 
 class Obstacle :public QLabel

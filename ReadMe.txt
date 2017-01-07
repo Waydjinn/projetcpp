@@ -1,40 +1,44 @@
 PROJET CPP - JEU DE TANK
 
-REMARQUE :
-Pour que ce soit plus lisible ouvre le ReadMe avec un éditeur de text.
-/!\/!\/!\
-Si les images apparaisent pas quand l'application est lancé, verifié que dans le dossier "build-nomDuProjet-Desktop_Qt_5_7_0_MinGW_32bit-Debug" ,normalement à la racine du dossier du projet, tu ai le dossier img, si c'est pas le cas tu le prend dans le dossier du projet et tu le copie juste.
-/!\/!\/!\
-
 SEGMENT :
 
-La classe Segment fait en TD, /!\Pas utilisé pour le moment/!\.
+La classe Segment fait en TD.
 
 POINT :
 
-La classe Point fait en TD, /!\Pas utilisé pour le moment/!\.
+La classe Point fait en TD.
 
-JOUEURH :
+OBSTACLE :
 
-La classe pour les joueurs humains, je l'utilise pas encore, faut peut être attribuer un tank à chaque joueurs et du coup passer par le joueur pour modifier son tank et tout mais pour le moment je me suis surtout occupé du terrain et des tanks.
+La classe Obstacle, inclue la classe point.
+Elle est constitué de: 
+    Obstacle() constructeur par défauts qui crée un objet vide.
+
+    Obstacle(QWidget *Fen) constructeur pour les obstacles arbres, rochers, eau. Dans ce constructeur on attribue un type aléatoire à l'obstacle (entre 1 et 3) qui déterminra si l'obstacle est un arbre (1) un rocher (2) ou de l'eau (3) et on initialise les attributs (vie, posX, posY, type) de l'obstacle en fonction de son type. On stock alors la position de l'obstacle crée dans un tableau de Point _TabPoint qui est une variable globale de la classe Obstacle et ses classes dérivées. A chaque création d'obstacle on incrémente une variable globale _nbrObstacle. 
+    Lorsque l'on place un Obstacle on vérifie s'il n'y a pas déjà d'obstacle à cette position, si c'est le cas on donne de nouvel coordonnées x y pour placer l'obstacle actuel.
+
+    Obstacle(QWidget *Fen, int x, int y, int typeO) le constructeur pour les obstacle de type impact, qui ont un fonctionnement différent que les autres obstacles (franchissables si assez de point de mouvement disponible). On stock alors la posisition des impact crée dans un tableau globale _TabImpacts et on garde un compteur globale _nbrImpacts à jour. 
+
+    Les getters et setters pour les attributs de l'objet.
+
+    Les fonctions int aleaObsX(int a, int b) et int aleaObsY(int a, int b) qui permettent de donner des positions aléatoires au obstacles sur la carte.
+
+    La fonction int chercherObs(Point *Tab, int x, int y) qui vérifie si un obstacle éxiste à la position (x,y) d'un tableau de point.
+
 
 TERRAIN :
 
-Pour l'instant juste un constructeur qui initialise la taille du terrain, L Longueur et C largeur. Peut être ajouter un tableau ou autre chose avec les coordonnées des obstacles quand on les aura mit.
+La class Terrain, inclue la classe obstacle. Elle est composé d'un constructeur qui :
+    Crée un objet Terrain avec un pointeur QWidget  en paramètre, pour rattacher le label du terrain à la fenêtre principale.
+    On initialise le terrain à une largeur C = 1000 et longueur L = 500, et on crée un Label, dans lequel on met une image, qui servira a afficher la carte sur le QWidget donné en paramètre.
+    On crée également 50 objets Obstacle qui représentent les abres, rochers et zone d'eau de la carte. On stock ces objets Obstacle dans une QListe<Obstacle *> listObstacle.
+
+    Les getters et setters pour les attributs de l'objet.
+
 
 TANK :
 
-La classe pour créer les tanks, pour commencer on a une variable global pour avoir le nombre de tank crée (faudra peut être faire pareille pour les joueurs), l'idée c'est qu'un tank à 3 types d'obus mais on touche pas à obus1 vu qu'ils sont inifini faudra juste gérer les dégats qu'ils font en fcontion de quel obus et tout.
-Donc dans le constructeur on initialise les obus2 et obus3, ensuite on donne la position de départ du tank sur le terrain (posx et posy) et la capacité c'est censé être L/10 (j'ai mit 25 dans le construct mais je le modifie au moment ou je crée le tank dans la classe fenetre) c'est le nombre de déplacement qu'on peut faire dans la partie.
-Et du coup en fcontion du nombre de tank qu'on a déjàa crée on change la position de départ, en haut à gauche pour le premier et en bas à droite pour le second pour le moment.
 
-On a les getters et les setters de base.
-
-La fonction "int avancer(int mouv)", l'idée c'est quand fonction de l'entier mouv qui sera 1, 2, 3 ou 4 ou aille soit vers haut, bas, droite, gauche. Le "int aBouge" sert de booléen pour savoir si on a bien modifier les coordonées du tank et à chaque fois avant de modifier les coordonnées on vérifie que le tank sorte pas du terrain.
-Les coordonnées c'est des pixels à chaque fois en fait.
-Quand les obstacles seront fait faudra aussi vérfifier qu'on traverse pas un obtacle et même le tank adverse.
-
-La fonction "void keyPressEvent(QKeyEvent *event)" c'est une tentative d'utiliser les fonctions de Qt pour les keyEvent mais j'ai pas tous compris, ça compile mais j'arrive pas à voir si ça change quoi que ce soit.
 
 FENETRE :
 
