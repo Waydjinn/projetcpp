@@ -9,7 +9,6 @@
 #include <QLCDNumber>
 #include <QPainter>
 
-#include "terrain.h"
 #include "tank.h"
 
 class Fenetre : public QWidget

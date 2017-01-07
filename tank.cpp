@@ -121,7 +121,7 @@ int Tank::aleaTankY(){
     }
 }
 
-void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //Ajouter les conditons pour ne pas traverser le tank adverse ou les obstacles
+void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){
     int bouge = 0;
     if(this->getCapacite() > 0){
         if(this->getNbrMouvTour() > 0){
