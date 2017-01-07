@@ -226,7 +226,7 @@ void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
             }
         }
     }else if(angle >= 241 && angle <= 300){ //bas
-        effet = tireEffet(tankJoueur, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50));
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx(), tankJoueur->getPosY()+((force/10)*50));
         if( effet == 1){
             if(tankJoueur->getPosx() < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){
                 listImpacts << new Obstacle(Fen, tankJoueur->getPosx(), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
