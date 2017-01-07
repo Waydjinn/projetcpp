@@ -153,11 +153,11 @@ Fenetre::Fenetre() : QWidget()//Appel du constructeur QWidget
     slider2 -> hide();
 
     //tankJ1
-    tank1 = new Tank(this);
+    tank1 = new Tank(this, terrain);
     tank1->setCapacite((terrain->getL()/10));
 
     //tankJ2
-    tank2 = new Tank(this);
+    tank2 = new Tank(this, terrain);
     tank2->setCapacite((terrain->getL()/10));
 
     //Actions

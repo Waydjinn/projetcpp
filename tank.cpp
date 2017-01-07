@@ -1,9 +1,9 @@
 #include "tank.h"
 
 int Tank:: _nbrTank = 0;
-Tank::Tank(QWidget *Fen)
+Tank::Tank(QWidget *Fen, Terrain *carte)
 {
-
+    carteT = carte;
     if(_nbrTank == 0){  //Tank J1
         this->posx = aleaTankX()*50;
         this->posy = aleaTankY()*50;
@@ -187,36 +187,63 @@ void Tank::avancer(int mouv, int joueur,Tank *tankJoueur, Tank *tankAdverse){ //
     }
 }
 
-
 void Tank:: tirer(QWidget *Fen, int angle, int force, Tank *tankJoueur){
     if(force == 0){
         force = 10;
     }
+    int effet;
 
     if(angle >= 0 && angle <= 30){ //gauche
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY());
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        }
     }else if(angle >= 31 && angle <= 60){ //diagonal haut gauche
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()-((force/10)*50));
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        }
     }else if(angle >= 61 && angle <= 120){ //haut
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx(), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx(), tankJoueur->getPosY()-((force/10)*50));
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx(), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        }
     }else if(angle >= 121 && angle <= 150){ //diagonale haut droit
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()-((force/10)*50));
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()-((force/10)*50), tankJoueur->getTypeObusCharg());
+        }
     }else if(angle >= 151 && angle <= 210){ //droite
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY());
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        }
     }else if(angle >= 211 && angle <= 240){ //diagonale bas droite
-        if(tankJoueur->getPosx()+((force/10)*50) < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){     //Evite l'affichage des impacts hors de la map
-            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50));
+        if( effet == 1){
+            if(tankJoueur->getPosx()+((force/10)*50) < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){     //Evite l'affichage des impacts hors de la map
+                listImpacts << new Obstacle(Fen, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+            }
         }
     }else if(angle >= 241 && angle <= 300){ //bas
-        if(tankJoueur->getPosx() < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){
-            listImpacts << new Obstacle(Fen, tankJoueur->getPosx(), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()+((force/10)*50), tankJoueur->getPosY()+((force/10)*50));
+        if( effet == 1){
+            if(tankJoueur->getPosx() < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){
+                listImpacts << new Obstacle(Fen, tankJoueur->getPosx(), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+            }
         }
     }else if(angle >= 301 && angle <= 330){ //diagonale bas gauche
-        if(tankJoueur->getPosx()-((force/10)*50) < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){
-            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()+((force/10)*50));
+        if( effet == 1){
+            if(tankJoueur->getPosx()-((force/10)*50) < 900 && tankJoueur->getPosY()+((force/10)*50) < 500){
+                listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY()+((force/10)*50), tankJoueur->getTypeObusCharg());
+            }
         }
     }else if(angle >= 331 && angle <= 360){ //gauche
-        listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        effet = tireEffet(tankJoueur, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY());
+        if( effet == 1){
+            listImpacts << new Obstacle(Fen, tankJoueur->getPosx()-((force/10)*50), tankJoueur->getPosY(), tankJoueur->getTypeObusCharg());
+        }
     }
 }
 
@@ -230,14 +257,30 @@ int Tank::aTouche(Tank *tankAdverse){
 }
 
 
-int Tank::tireDegats(Tank *tankJoueur, int posTirX, int posTirY){
-    for(int i = 0; i < _nbrImpacts; i++){
+int Tank::tireEffet(Tank *tankJoueur,int posTirX, int posTirY){
+    int res = 1;
+    for(int i = 0; i < _nbrObstacle; i++){
         if(_TabPoint[i].getX() == posTirX && _TabPoint[i].getY() == posTirY){
-            if(listImpacts[i]->getType() == 2){
-
+            if(tankJoueur->carteT->listObstacle[i]->getType() == 2){
+                res = 0;
+                tankJoueur->carteT->listObstacle[i]->setVie(tankJoueur->carteT->listObstacle[i]->getVie()-1);
+                if(tankJoueur->carteT->listObstacle[i]->getVie() == 6){
+                    tankJoueur->carteT->listObstacle[i]->setPixmap(QPixmap(":/img/img/roche2.png"));
+                }
+                if(tankJoueur->carteT->listObstacle[i]->getVie() < 1){
+                    _TabPoint[i].setX(-1);
+                    _TabPoint[i].setY(-1);
+                    res = 1;
+                }
+            }else if(tankJoueur->carteT->listObstacle[i]->getType() == 3){
+                res = 0;
+            }else{//Tire sur arbre on supprime l'obstacle (1 vie)
+                _TabPoint[i].setX(-1);
+                _TabPoint[i].setY(-1);
             }
         }
     }
+    return res;
 }
 
 int Tank::verif(Tank *tankJoueur, int mouv){
